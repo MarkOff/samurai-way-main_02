@@ -1,0 +1,22 @@
+.nav {
+    grid-area: n;
+    background-color: skyblue;
+
+}
+
+.item  a{
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.item a.active {
+    color: gold;
+}
+
+h2 {
+    margin-left: 20px;
+    margin-top: 100px;
+    font-size: 30px;
+    width: 102px;
+
+}
