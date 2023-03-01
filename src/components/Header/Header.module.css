@@ -9,3 +9,12 @@
     margin-left: 10px;
 }
 
+.loginBlock {
+    float: right;
+    color: whitesmoke;
+}
+
+.loginBlock a{
+    color: whitesmoke;
+    text-decoration: none;
+}

@@ -1,26 +1,18 @@
 import React from 'react';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
-import {StorePropsType} from '../../redux/redux-store';
+import {StoreType} from '../../redux/redux-store';
 import {MyPostsContainer} from './MyPosts/MyPostsContainer';
+import {UsersProfilePropsType} from './ProfileContainer';
 
-type ProfilePropsType = {
-    store: StorePropsType
-    // profilePage: ProfilePageType
-    // dispatch: (action: RootActionsType) => void
-}
 
-export const Profile = (props: ProfilePropsType) => {
+
+export const Profile = (props: UsersProfilePropsType) => {
+    const {profile, setProfile, isAuth} = props
+
     return (
         <div>
-            <ProfileInfo/>
-            {/*<MyPosts*/}
-            {/*    posts={props.profilePage.posts}*/}
-            {/*    newPostText ={props.profilePage.newPostText}*/}
-            {/*    // dispatch={props.dispatch}*/}
-            {/*/>*/}
-            <MyPostsContainer
-                store={props.store}
-            />
+            <ProfileInfo isAuth={isAuth} profile={profile} setProfile={setProfile} />
+            <MyPostsContainer/>
         </div>
     );
 };

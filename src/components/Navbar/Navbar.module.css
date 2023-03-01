@@ -1,22 +1,35 @@
 .nav {
     grid-area: n;
     background-color: skyblue;
+    padding-top: 20px;
 
 }
 
-.item  a{
+.item  {
+    color: whitesmoke;
+    text-decoration: none;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+.itemText {
     color: whitesmoke;
     text-decoration: none;
 }
 
-.item a.active {
+.active  {
     color: gold;
 }
 
-h2 {
+.sidebar h2 {
     margin-left: 20px;
     margin-top: 100px;
     font-size: 30px;
     width: 102px;
 
+}
+
+.sidebar a{
+    color: whitesmoke;
+    text-decoration: none;
 }

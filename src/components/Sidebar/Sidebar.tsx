@@ -1,24 +1,27 @@
 import React from 'react';
-import {SidebarType} from '../../redux/redux-store';
-import {Friends} from './Friends/Friends';
+import {AppStateType, FriendsType, SidebarType} from '../../redux/redux-store';
+import {FriendRender, Friends} from './Friends/Friends';
 import {NavLink} from 'react-router-dom';
 import s from './Sidebar.module.css'
+import {useSelector} from 'react-redux';
 
 export type SidebarPropsType = {
-    state: SidebarType
+    // state: SidebarType
 }
 
-export const Sidebar = (props: SidebarPropsType) => {
-   const friendsElement = props.state.friends.map((e) => {
-        return (
-            <Friends id={e.id} ava={e.ava} name={e.name}/>
-        )
-    })
+export const Sidebar = () => {
+
+    // const friends = useSelector<AppStateType,FriendsType[]>(state => state.sidebar.friends)
+    //
+    // const friendsElement = friends.map((e) => {
+    //     return (
+    //         <Friends key={e.id} id={e.id} ava={e.ava} name={e.name}/>
+    //     )
+    // })
 
     return (
             <div className={s.item}>
-                <NavLink to='/friends' activeClassName={s.active}> <h2>Friends</h2> </NavLink>
-                {friendsElement}
+                <FriendRender/>
             </div>
     );
 };

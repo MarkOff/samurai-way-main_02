@@ -1,48 +1,35 @@
 import React from 'react';
 import './App.css';
-import {Header} from './components/Header/Header';
 import {Navbar} from './components/Navbar/Navbar';
-import {Profile} from './components/Profile/Profile';
-import {Route} from 'react-router-dom';
+import {Redirect, Route} from 'react-router-dom';
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Settings/Settings';
-import {RootActionsType, StatePropsType, StorePropsType} from './redux/redux-store';
 import {DialogsContainer} from './components/Dialogs/DialogsContainer';
-
-export type AppProps = {
-    store: StorePropsType
-    state: StatePropsType
-    // dispatch: (action: RootActionsType ) => void
-}
+import UsersContainer from './components/Users/UsersContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
+import {Login} from './components/Login/Login';
 
 
-export const App = (props: AppProps) => {
+
+export const App = () => {
     return (
         <div className="App">
-            <Header/>
-            <Navbar friend={props.state.sidebar}/>
+            <HeaderContainer />
+            <Navbar />
 
             <div className="app-contents">
-                <Route path="/profile" render={() =>
-                    <Profile
-                        store ={props.store}
-                        // profilePage={props.state.profilePage}
-                        // dispatch={props.dispatch}
-                     />}
-                />
+                <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
+                <Route path="/dialog" render={() => <DialogsContainer/>}/>
 
-                <Route path="/dialog" render={() =>
-                    <DialogsContainer
-                        store = {props.store}
-                        // messagePage={props.state.messagesPage}
-                        // dispatch={props.dispatch}
-                        // newMessageText={props.state.messagesPage.newMessageText}
-                    />}
-                />
                 <Route path="/news" render={() => <News/>}/>
                 <Route path="/music" render={() => <Music/>}/>
                 <Route path="/settings" render={() => <Settings/>}/>
+                <Route path="/users" render={() => <UsersContainer/>}/>
+
+                <Route path="/login" render={() => <Login/>}/>
+
 
             </div>
         </div>

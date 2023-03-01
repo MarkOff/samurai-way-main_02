@@ -1,14 +1,7 @@
-import React, {useRef} from 'react';
+import React, {ChangeEvent, useRef} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from './Post/Post';
-import {PostsProps, ProfilePageType} from '../../../redux/redux-store';
-
-export type MyPostsType = {
-    profilePage: ProfilePageType
-    addPost: () => void
-    updateNewPostText: (text: string) => void
-}
-
+import {MyPostsType} from './MyPostsContainer';
 
 
 export const MyPosts = (props: MyPostsType) => {
@@ -17,29 +10,28 @@ export const MyPosts = (props: MyPostsType) => {
 
     const postsElement = state.posts.map((e) => {
         return (
-            <Post message={e.message} counterLike={e.counterLike}/>
+            <Post key={e.id} message={e.message} counterLike={e.counterLike}/>
         )
     })
 
-    const newPostEl = useRef<HTMLTextAreaElement>(null)
+    // const newPostEl = useRef<HTMLTextAreaElement>(null)
 
     const addPost = () => {
         props.addPost()
     }
 
 
-    const onPostChange = () => {
-        let text = newPostEl.current?.value
-        if(text){
-            props.updateNewPostText(text)
-            }
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let text = e.currentTarget.value
+        props.updateNewPostText(text)
+
     }
 
     return (
         <div className={s.postBlock}>
             <h3>My posts</h3>
             <div>
-                <textarea onChange={onPostChange} ref={newPostEl} value={state.newPostText}/>
+                <textarea onChange={onPostChange} value={state.newPostText}/>
 
             </div>
             <div>

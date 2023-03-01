@@ -1,6 +1,8 @@
 import React from 'react';
 import s from './Friends.module.css'
 import {NavLink} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {AppStateType, FriendsType} from '../../../redux/redux-store';
 
 export type FriendsPropsType = {
     id: string
@@ -25,3 +27,20 @@ export const Friends = (props: FriendsPropsType) => {
     );
 };
 
+export const FriendRender = () =>{
+
+
+    const friends = useSelector<AppStateType,FriendsType[]>(state => state.sidebar.friends)
+
+    const friendsElement = friends.map((e) => {
+        return (
+            <Friends key={e.id} id={e.id} ava={e.ava} name={e.name}/>
+        )
+    })
+    return (
+        <div className={s.item}>
+            <NavLink to='/friends' activeClassName={s.active}> <h2>Friends</h2> </NavLink>
+            {friendsElement}
+        </div>
+    );
+}
