@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {forPageSwitch, getUser, onFollowUser, onUnfollowUser} from '../../redux/users-reducer';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
+import {withAuthRedirect} from '../../hok/withAuthRedirect';
+import {compose} from 'redux';
 
 
 export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
@@ -103,9 +105,10 @@ const mapDispatchToProps: MapDispatchPropsType = {
 
 //HOK for UsersAPIComponent and next for Users(presentation component) --------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
-
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+    )(UsersContainer)
 
 // let mapDispatchToProps = (dispatch: Dispatch<RootActionsType>): MapDispatchPropsType => {
 //     return {

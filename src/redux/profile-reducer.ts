@@ -73,7 +73,6 @@ export const setUserProfile = (profile: UserProfileType) =>{
 
 export const setProfile = (userId: string) => {
     return (dispatch: Dispatch<UniversalTypeForProfileActions>) => {
-
         userApi.setProfile(userId)
             .then(response => dispatch(setUserProfile(response.data))
             )

@@ -7,11 +7,11 @@ import {UsersProfilePropsType} from './ProfileContainer';
 
 
 export const Profile = (props: UsersProfilePropsType) => {
-    const {profile, setProfile, isAuth} = props
+    const {profile, setProfile} = props
 
     return (
         <div>
-            <ProfileInfo isAuth={isAuth} profile={profile} setProfile={setProfile} />
+            <ProfileInfo  profile={profile} setProfile={setProfile} />
             <MyPostsContainer/>
         </div>
     );
