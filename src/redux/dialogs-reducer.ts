@@ -33,23 +33,17 @@ const initialState = {
             name: 'Vasa',
             ava: 'https://abrakadabra.fun/uploads/posts/2021-12/1639902118_3-abrakadabra-fun-p-ugarnie-avatarki-dlya-ks-3.png'
         },
-    ],
-    newMessageText: '',
+    ]
 }
 
 export const dialogsReducer = (state: MessagesPageType = initialState, action: UniversalTypeForMessagesPageType) => {
 
     switch (action.type) {
         case SEND_MESSAGE: {
-            let newMessage = {
-                id: v1(),
-                message: state.newMessageText
+            return {
+                ...state,
+                messages: [...state.messages, {id: v1(), message: action.newMessageBody}],
             }
-            return {...state, messages: [...state.messages, newMessage], newMessageText: ''}
-
-        }
-        case UPDATE_NEW_MESSAGE_TEXT: {
-            return {...state, newMessageText: action.newText}
         }
         default:
             return state
@@ -59,14 +53,6 @@ export const dialogsReducer = (state: MessagesPageType = initialState, action: U
 
 export type UniversalTypeForMessagesPageType =
     | ReturnType<typeof sendMessageAC>
-    | ReturnType<typeof onMessageChangeAC>
 
-export const sendMessageAC = () => ({type: SEND_MESSAGE} as const)
+export const sendMessageAC = (newMessageBody: string) => ({type: SEND_MESSAGE, newMessageBody} as const)
 
-
-export const onMessageChangeAC = (text: string) => (
-    {
-        type: UPDATE_NEW_MESSAGE_TEXT,
-        newText: text
-    } as const
-)

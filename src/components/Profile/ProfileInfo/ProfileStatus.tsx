@@ -1,23 +1,37 @@
-import React from 'react';
-import s from './ProfileInfo.module.css';
-import defaultAva from '../../../avatars/765-default-avatar.png';
+import React, {ChangeEvent, LegacyRef, RefObject} from 'react';
 import {UsersProfilePropsType} from '../ProfileContainer';
 
-export class ProfileStatus extends React.Component {
+export class ProfileStatus extends React.Component <UsersProfilePropsType> {
+
     state = {
-        editMode: false
+        editMode: false,
+        status: this.props.status
     }
 
-    activateEditeMode() {
-        console.log()
+    activateEditeMode = () => {
         this.setState({
             editMode: true
         });
     }
-    deactivateEditeMode() {
+    deactivateEditeMode = () => {
         this.setState({
             editMode: false
         });
+        this.props.updateStatus(this.state.status)
+    }
+
+    onStatusChange = (e:ChangeEvent<HTMLInputElement>) => {
+            this.setState({
+                status: e.currentTarget.value
+            })
+    }
+
+    componentDidUpdate(prevProps: Readonly<UsersProfilePropsType>, prevState: Readonly<{}>) {
+        if(prevProps.status !== this.props.status){
+            this.setState({
+                status: this.props.status
+            })
+        }
     }
 
     render() {
@@ -25,12 +39,13 @@ export class ProfileStatus extends React.Component {
             <div>
                 {!this.state.editMode &&
                     <div>
-                        <span onDoubleClick={this.activateEditeMode.bind(this)}>{'hi'}</span>
+                        <span onDoubleClick={this.activateEditeMode}> {this.props.status || 'No status'}</span>
                     </div>
                 }
                 {this.state.editMode &&
                     <div>
-                        <input autoFocus={true} onBlur={this.deactivateEditeMode.bind(this)} value={'hi'}/>
+                        <input onChange={this.onStatusChange}  autoFocus={true} onBlur={this.deactivateEditeMode}
+                               value={this.state.status}/>
                     </div>
                 }
             </div>

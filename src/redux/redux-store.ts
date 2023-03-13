@@ -6,6 +6,7 @@ import {sidebarReducer} from './sidebar-reducer';
 import {UniversalTypeForUserActions, usersReducer} from './users-reducer';
 import {authReducer, UniversalTypeForAuthType} from './auth-reducer';
 import thunkMiddleware from 'redux-thunk'
+import {reducer as formReducer} from  'redux-form'
 
 export type StoreType = {
     _state: StateType
@@ -30,8 +31,8 @@ export type StateType = {
 
 export type ProfilePageType = {
     posts: PostsProps[]
-    newPostText: string
     profile: UserProfileType | null
+    status: string
 }
 
 export type HeaderType= {
@@ -49,7 +50,6 @@ export type AuthType = {
 export type MessagesPageType = {
     messages: MessagesType[]
     dialogs: DialogsType[]
-    newMessageText: string
 }
 
 export type SidebarType = {
@@ -127,6 +127,7 @@ let reducer = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
+    form: formReducer
 })
 
 export const store = createStore(reducer, applyMiddleware(thunkMiddleware))

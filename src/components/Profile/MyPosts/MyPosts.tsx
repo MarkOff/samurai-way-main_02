@@ -1,7 +1,8 @@
-import React, {ChangeEvent, useRef} from 'react';
+import React from 'react';
 import s from './MyPosts.module.css'
 import {Post} from './Post/Post';
 import {MyPostsType} from './MyPostsContainer';
+import {PostFormType, PostReduxForm} from '../PostForm/AddNewPostForm';
 
 
 export const MyPosts = (props: MyPostsType) => {
@@ -14,30 +15,15 @@ export const MyPosts = (props: MyPostsType) => {
         )
     })
 
-    // const newPostEl = useRef<HTMLTextAreaElement>(null)
 
-    const addPost = () => {
-        props.addPost()
-    }
-
-
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let text = e.currentTarget.value
-        props.updateNewPostText(text)
-
+    const addPost = (values: PostFormType) => {
+        props.addPost(values.postFormBody)
     }
 
     return (
         <div className={s.postBlock}>
             <h3>My posts</h3>
-            <div>
-                <textarea onChange={onPostChange} value={state.newPostText}/>
-
-            </div>
-            <div>
-                <button onClick={addPost}>Add post</button>
-            </div>
-
+            <PostReduxForm onSubmit={addPost}/>
             <div className={s.posts}>
                 {postsElement}
             </div>
