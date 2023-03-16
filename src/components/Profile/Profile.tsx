@@ -6,13 +6,13 @@ import {UsersProfilePropsType} from './ProfileContainer';
 
 
 export const Profile = (props: UsersProfilePropsType) => {
-    const {profile, setProfile, getStatus, updateStatus, status} = props
+    const {profile, setProfile, getStatus, updateStatus, status, isAuth, autorizedUserId} = props
 
     return (
         <div>
             <ProfileInfo profile={profile} getStatus={getStatus}
                          setProfile={setProfile} updateStatus={updateStatus}
-                         status={status}
+                         status={status} isAuth={isAuth} autorizedUserId={autorizedUserId}
             />
             <MyPostsContainer/>
         </div>

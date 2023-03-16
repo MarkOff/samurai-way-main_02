@@ -1,16 +1,20 @@
 import React from 'react';
-import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {FormDataType, LoginReduxForm} from './LoginForm';
+import {loginTC} from '../../redux/auth-reducer';
+import {connect} from 'react-redux';
+import {AppStateType, AuthType} from '../../redux/redux-store';
+import {Redirect} from 'react-router-dom';
 
-type FormDataType = {
-    login: string
-    password: string
-    rememberMe: boolean
-}
 
-export const Login = () => {
-    const onSubmit = (formData:FormDataType) => {
-    console.log(formData)
+export const Login = (props: LoginContainerPropsType) => {
+    const onSubmit = (formData: FormDataType) => {
+        props.login(formData.email, formData.password, formData.rememberMe)
     }
+
+    if (props.isAuth) {
+        return <Redirect to={'/profile'}/>
+    }
+
     return (
         <div>
             <h1>Login</h1>
@@ -20,25 +24,21 @@ export const Login = () => {
 };
 
 
-
-
-const LoginFrom: React.FC<InjectedFormProps<FormDataType>> = (props) => {
-    return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field component="input" name="login" placeholder="login"/>
-            </div>
-            <div>
-                <Field component="input" type='password' name="password" placeholder="password"/>
-            </div>
-            <div>
-               rememberMe: <Field component="input" name="rememberMe" type="checkbox"/>
-            </div>
-            <div>
-                <button>login</button>
-            </div>
-        </form>
-    )
+type MapDispatchToPropsType = {
+    login: (email: string, password: string, rememberMe: boolean) => void
+}
+type MapStateToPropsType = {
+    isAuth: boolean
 }
 
-const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginFrom)
+export type LoginContainerPropsType = MapDispatchToPropsType & MapStateToPropsType
+
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+const mapDispatchToProps: MapDispatchToPropsType = {
+    login: loginTC,
+}
+export const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(Login)

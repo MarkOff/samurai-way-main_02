@@ -6,7 +6,7 @@ import defaultAva from '../../../avatars/765-default-avatar.png'
 import {ProfileStatus} from './ProfileStatus';
 
 export const ProfileInfo = (props: UsersProfilePropsType) => {
-    const {profile, getStatus, setProfile, updateStatus, status} = props
+    const {profile, getStatus, setProfile, updateStatus, status, isAuth, autorizedUserId} = props
 
     if (!profile) {
         return <Preloader/>
@@ -26,8 +26,10 @@ export const ProfileInfo = (props: UsersProfilePropsType) => {
                     {profile.fullName}
                     <div className={s.status}>
                         <ProfileStatus status={status} updateStatus={updateStatus}
-                                              setProfile={setProfile} profile={profile}
-                                              getStatus={getStatus}/>
+                                       setProfile={setProfile} profile={profile}
+                                       getStatus={getStatus} autorizedUserId={autorizedUserId}
+                                       isAuth={isAuth}
+                        />
                     </div>
                     <div className={s.aboutMe}>About me: {profile.aboutMe} </div>
                 </div>

@@ -40,7 +40,7 @@ export type HeaderType= {
 }
 
 export type AuthType = {
-    userId: number | null
+    userId: string | null
     email: string | null
     login: string | null
     isAuth: boolean

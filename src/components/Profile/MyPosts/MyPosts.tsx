@@ -17,7 +17,7 @@ export const MyPosts = (props: MyPostsType) => {
 
 
     const addPost = (values: PostFormType) => {
-        props.addPost(values.postFormBody)
+        props.addPost(values.newPostTextBody)
     }
 
     return (
