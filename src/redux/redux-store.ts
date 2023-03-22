@@ -1,4 +1,3 @@
-import React from 'react';
 import {applyMiddleware, combineReducers, createStore} from 'redux';
 import {profileReducer, UniversalTypeForProfileActions} from './profile-reducer';
 import {dialogsReducer, UniversalTypeForMessagesPageType} from './dialogs-reducer';
@@ -6,7 +5,8 @@ import {sidebarReducer} from './sidebar-reducer';
 import {UniversalTypeForUserActions, usersReducer} from './users-reducer';
 import {authReducer, UniversalTypeForAuthType} from './auth-reducer';
 import thunkMiddleware from 'redux-thunk'
-import {reducer as formReducer} from  'redux-form'
+import {reducer as formReducer} from 'redux-form'
+import {appReducer} from './app-reducer';
 
 export type StoreType = {
     _state: StateType
@@ -119,6 +119,9 @@ export type FriendsType = {
     ava: string
 }
 
+export type AppType = {
+    initialized: boolean
+}
 
 //-------------------------------------------------------------------------
 let reducer = combineReducers({
@@ -127,6 +130,7 @@ let reducer = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
+    app: appReducer,
     form: formReducer
 })
 
