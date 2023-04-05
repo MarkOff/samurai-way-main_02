@@ -4,6 +4,7 @@ import {UsersProfilePropsType} from '../ProfileContainer';
 import {Preloader} from '../../common/Preloader/Preloader';
 import defaultAva from '../../../avatars/765-default-avatar.png'
 import {ProfileStatus} from './ProfileStatus';
+import {ProfileStatusWithHooks} from 'components/Profile/ProfileInfo/ProfileStatusWithHooks';
 
 export const ProfileInfo = (props: UsersProfilePropsType) => {
     const {profile, getStatus, setProfile, updateStatus, status, isAuth, autorizedUserId} = props
@@ -11,8 +12,9 @@ export const ProfileInfo = (props: UsersProfilePropsType) => {
     if (!profile) {
         return <Preloader/>
     }
-    const hasContacts = Object.values(profile.contacts).some(contact => contact !== null && contact !== '');
+    const hasContacts = Object.values(profile.contacts).some(contact => contact !== null && contact !== '')
     const hasAboutMe = profile.aboutMe !== null ? `About me: ${profile.aboutMe}` : ''
+    const hasStatusJob = profile.lookingForAJobDescription !== null? `Status Job:${profile.lookingForAJobDescription}` : ''
 
     return (
         <div>
@@ -27,7 +29,7 @@ export const ProfileInfo = (props: UsersProfilePropsType) => {
                 <div className={s.name}>
                     {profile.fullName}
                     <div className={s.status}>
-                        <ProfileStatus status={status} updateStatus={updateStatus}
+                        <ProfileStatusWithHooks status={status} updateStatus={updateStatus}
                                        setProfile={setProfile} profile={profile}
                                        getStatus={getStatus} autorizedUserId={autorizedUserId}
                                        isAuth={isAuth}
@@ -59,7 +61,7 @@ export const ProfileInfo = (props: UsersProfilePropsType) => {
                 </div>}
             </div>
 
-            <span className={s.statusJob}>Status Job: {profile.lookingForAJobDescription}</span>
+            <span className={s.statusJob}>{hasStatusJob}</span>
 
         </div>
     );
