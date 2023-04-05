@@ -1,9 +1,14 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, {ChangeEvent, FC, useEffect, useState} from 'react';
 import {UsersProfilePropsType} from '../ProfileContainer';
 
 export const ProfileStatusWithHooks: FC<UsersProfilePropsType> = ({status, updateStatus}) => {
     const [editMode, setEditMode] = useState(false)
     const [newStatus, setNewStatus] = useState(status)
+
+    useEffect(() => {
+        setNewStatus(status)
+    },[status])
+
 
     const onActiveEditMode = () => {
         setEditMode(true)
@@ -32,7 +37,7 @@ export const ProfileStatusWithHooks: FC<UsersProfilePropsType> = ({status, updat
             {editMode &&
                 <div>
                     <input onChange={onStatusChange} autoFocus={true} onBlur={onDeactivateEditeMode}
-                           value={newStatus} placeholder={'change you status'}/>
+                           value={newStatus} placeholder={'change you status'} minLength={0} maxLength={30}/>
                 </div>
             }
         </div>
