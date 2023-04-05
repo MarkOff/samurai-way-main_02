@@ -1,16 +1,18 @@
 import React from 'react';
-import {AppStateType, MessagesPageType, RootActionsType} from '../../redux/redux-store';
-import {sendMessageAC} from '../../redux/dialogs-reducer';
+import {AppStateType, DialogsType, MessagesPageType, MessagesType, RootActionsType} from 'redux/redux-store';
+import {sendMessageAC} from 'redux/dialogs-reducer';
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
 import {compose, Dispatch} from 'redux';
-import {withAuthRedirect} from '../../hok/withAuthRedirect';
+import {withAuthRedirect} from 'hok/withAuthRedirect';
+import {selectDialogs, selectMessage} from 'redux/selectors/message.selectors';
 
 export type DialogsPropsType = MapStatePropsType & MapDispatchPropsType
 
 
 type MapStatePropsType = {
-    messagesPage: MessagesPageType
+    messages: MessagesType[]
+    dialogs: DialogsType[]
 }
 
 type MapDispatchPropsType = {
@@ -22,16 +24,13 @@ type MapDispatchPropsType = {
 
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        messagesPage: state.messagesPage,
+        messages: selectMessage(state),
+        dialogs: selectDialogs(state),
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch<RootActionsType>): MapDispatchPropsType => {
-    return {
-        sendMessage: (newMessageBody: string) => {
-            dispatch(sendMessageAC(newMessageBody))
-        },
-    }
+let mapDispatchToProps: MapDispatchPropsType = {
+        sendMessage: sendMessageAC
 }
 
 

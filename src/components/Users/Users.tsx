@@ -3,7 +3,6 @@ import s from './Users.module.css';
 import defaultAva from '../../avatars/765-default-avatar.png';
 import {UsersPropsType} from './UsersContainer';
 import {NavLink} from 'react-router-dom';
-import {forPageSwitch} from '../../redux/users-reducer';
 
 export const Users = (props: UsersPropsType) => {
     const {

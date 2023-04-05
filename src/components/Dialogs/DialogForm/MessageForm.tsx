@@ -1,6 +1,6 @@
 import React from 'react';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
-import {maxLengthCreator, required} from '../../../utils/validators/validators';
+import {maxLengthCreator, required} from 'utils/validators/validators';
 import {Textarea} from '../../common/FormsControl/FormsControl';
 
 export type MessageForm = {
@@ -8,6 +8,7 @@ export type MessageForm = {
 }
 
 const max50symbols = maxLengthCreator(50)
+
 
 const MessageForm: React.FC<InjectedFormProps<MessageForm>> = (props) => {
     return (

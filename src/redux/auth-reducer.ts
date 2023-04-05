@@ -47,7 +47,7 @@ export const setAuthUserData = (userId: string | null, email: string | null, log
 
 
 export const getAuthUserDataTC = () => (dispatch: Dispatch<UniversalTypeForAuthType>) => {
-   return  authAPI.me()
+    return authAPI.me()
         .then(response => {
             if (response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data
@@ -58,16 +58,16 @@ export const getAuthUserDataTC = () => (dispatch: Dispatch<UniversalTypeForAuthT
 
 export const loginTC = (email: string, password: string, rememberMe: boolean) =>
     (dispatch: ThunkDispatch<AuthType, any, UniversalTypeForAuthType | Action>) => {
-    authAPI.login(email, password, rememberMe)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(getAuthUserDataTC())
-            } else {
-                let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
-                dispatch(stopSubmit('login', {_error: message}))
-            }
-        })
-}
+        authAPI.login(email, password, rememberMe)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(getAuthUserDataTC())
+                } else {
+                    let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
+                    dispatch(stopSubmit('login', {_error: message}))
+                }
+            })
+    }
 export const logoutTC = () => (dispatch: Dispatch) => {
     authAPI.logout()
         .then(response => {

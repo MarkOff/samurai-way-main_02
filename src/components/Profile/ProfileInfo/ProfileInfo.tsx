@@ -11,6 +11,8 @@ export const ProfileInfo = (props: UsersProfilePropsType) => {
     if (!profile) {
         return <Preloader/>
     }
+    const hasContacts = Object.values(profile.contacts).some(contact => contact !== null && contact !== '');
+    const hasAboutMe = profile.aboutMe !== null ? `About me: ${profile.aboutMe}` : ''
 
     return (
         <div>
@@ -31,35 +33,33 @@ export const ProfileInfo = (props: UsersProfilePropsType) => {
                                        isAuth={isAuth}
                         />
                     </div>
-                    <div className={s.aboutMe}>About me: {profile.aboutMe} </div>
+                    <div className={s.aboutMe}>{hasAboutMe}</div>
                 </div>
 
 
-                <div className={s.contacts}>
-                    <h3>My contacts:</h3>
+                {hasContacts && <div className={s.contacts}>
+                    <h3>My contacts: </h3>
 
-                    <div>{profile.contacts.github && <a href={profile.contacts.github}>GitHub</a>}</div>
+                    {profile.contacts.github && <a href={profile.contacts.github}>GitHub</a>}
 
-                    <div>{profile.contacts.vk && <a href={profile.contacts.vk}>Vk</a>}</div>
+                    {profile.contacts.vk && <a href={profile.contacts.vk}>Vk</a>}
 
-                    <div>{profile.contacts.instagram && <a href={profile.contacts.instagram}>instagram</a>}</div>
+                    {profile.contacts.instagram && <a href={profile.contacts.instagram}>instagram</a>}
 
-                    <div>{profile.contacts.facebook && <a href={profile.contacts.facebook}>facebook</a>}</div>
+                    {profile.contacts.facebook && <a href={profile.contacts.facebook}>facebook</a>}
 
-                    <div>{profile.contacts.twitter && <a href={profile.contacts.twitter}>twitter</a>}</div>
+                    {profile.contacts.twitter && <a href={profile.contacts.twitter}>twitter</a>}
 
-                    <div>{profile.contacts.mainLink && <a href={profile.contacts.mainLink}>mainLink</a>}</div>
+                    {profile.contacts.mainLink && <a href={profile.contacts.mainLink}>mainLink</a>}
 
-                    <div>{profile.contacts.youtube && <a href={profile.contacts.youtube}>youtube</a>}</div>
+                    {profile.contacts.youtube && <a href={profile.contacts.youtube}>youtube</a>}
 
-                    <div>{profile.contacts.website && <a href={profile.contacts.website}>website</a>}</div>
+                    {profile.contacts.website && <a href={profile.contacts.website}>website</a>}
 
-                </div>
+                </div>}
             </div>
 
-
-            <div className={s.statusJob}>Status Job: {profile.lookingForAJobDescription}</div>
-
+            <span className={s.statusJob}>Status Job: {profile.lookingForAJobDescription}</span>
 
         </div>
     );

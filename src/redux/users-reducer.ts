@@ -135,13 +135,14 @@ export const statusFollowing = (userId: string, isFetching: boolean) => (
 
 // ThunkCreators ---------------------------------------------------------------------------------------------------------
 
-export const getUser = (currentPage: number, pageSize: number) => {
+export const getUser = (page: number, pageSize: number) => {
 
     return (dispatch: Dispatch<UniversalTypeForUserActions>) => {
 
         dispatch(setToggleIsFetch(true))
+        dispatch(setCurrentPage(page))
 
-        userApi.getUsers(currentPage, pageSize)
+        userApi.getUsers(page, pageSize)
             .then(response => {
                 dispatch(setToggleIsFetch(false))
                 dispatch(setUsers(response.data.items))

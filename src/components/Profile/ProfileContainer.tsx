@@ -1,10 +1,12 @@
 import React from 'react';
-import {AppStateType, UserProfileType} from '../../redux/redux-store';
+import {AppStateType, UserProfileType} from 'redux/redux-store';
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
-import {getUserStatusTC, setProfileTC, updateStatusTC} from '../../redux/profile-reducer';
+import {getUserStatusTC, setProfileTC, updateStatusTC} from 'redux/profile-reducer';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
+import {selectProfile, selectStatus} from 'redux/selectors/profile.selectors';
+import {selectIsAuth, selectUserId} from 'redux/selectors/auth.selectors';
 
 
 export type UsersProfilePropsType = MapStatePropsType & MapDispatchPropsType
@@ -70,10 +72,10 @@ class ProfileContainer extends React.Component <PropsType> {
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        profile: state.profilePage.profile,
-        status: state.profilePage.status,
-        autorizedUserId: state.auth.userId,
-        isAuth: state.auth.isAuth,
+        profile: selectProfile(state),
+        status: selectStatus(state),
+        autorizedUserId: selectUserId(state),
+        isAuth: selectIsAuth(state),
     }
 }
 

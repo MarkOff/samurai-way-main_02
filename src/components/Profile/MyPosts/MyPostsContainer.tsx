@@ -1,15 +1,16 @@
 import React from 'react';
-import {AppStateType, ProfilePageType, RootActionsType} from '../../../redux/redux-store';
-import {addPostAC} from '../../../redux/profile-reducer';
+import {AppStateType, PostsProps, ProfilePageType, RootActionsType, UserProfileType} from 'redux/redux-store';
+import {addPostAC} from 'redux/profile-reducer';
 import {MyPosts} from './MyPosts';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
+import {selectPost, selectProfile, selectStatus} from 'redux/selectors/profile.selectors';
 
 export type MyPostsType = MapStateToPropsType & MapDispatchToPropsType
 
 
 type MapStateToPropsType = {
-    profilePage: ProfilePageType
+    profilePost: PostsProps[]
 }
 
 type MapDispatchToPropsType = {
@@ -20,17 +21,11 @@ type MapDispatchToPropsType = {
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        profilePage: state.profilePage
+        profilePost: selectPost(state)
     }
 }
-let mapDispatchToProps = (dispatch: Dispatch<RootActionsType>): MapDispatchToPropsType => {
-
-    return {
-        addPost: (postFormBody: string) => {
-            dispatch(addPostAC(postFormBody))
-        },
-
-    }
+let mapDispatchToProps: MapDispatchToPropsType = {
+    addPost: addPostAC,
 }
 
 export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
