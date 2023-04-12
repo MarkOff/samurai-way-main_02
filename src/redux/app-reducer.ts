@@ -30,9 +30,7 @@ export type UniversalTypeForAppType =
 
 
 
-export const initializedSuccess = () => (
-    {type: INITIALIZED_SUCCESS,} as const
-)
+export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS,} as const)
 
 
 export const initializeApp = () => (dispatch: ThunkDispatch<AppType, any, UniversalTypeForAppType | Action>) => {

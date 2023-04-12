@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, createStore} from 'redux';
+import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import {profileReducer, UniversalTypeForProfileActions} from './profile-reducer';
 import {dialogsReducer, UniversalTypeForMessagesPageType} from './dialogs-reducer';
 import {sidebarReducer} from './sidebar-reducer';
@@ -7,7 +7,7 @@ import {authReducer, UniversalTypeForAuthType} from './auth-reducer';
 import thunkMiddleware from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 import {appReducer} from './app-reducer';
-
+import { composeWithDevTools } from '@redux-devtools/extension';
 export type StoreType = {
     _state: StateType
     getState: () => StateType
@@ -35,7 +35,7 @@ export type ProfilePageType = {
     status: string
 }
 
-export type HeaderType= {
+export type HeaderType = {
     auth: AuthType
 }
 
@@ -80,11 +80,11 @@ export type UserProfileType = {
     contacts: {
         facebook: string,
         website: null | string,
-        vk: string,
-        twitter: string,
-        instagram: string,
+        vk: null | string,
+        twitter: null | string,
+        instagram: null | string,
         youtube: null | string,
-        github: string,
+        github: null | string,
         mainLink: null | string
     },
     lookingForAJob: boolean,
@@ -134,7 +134,11 @@ let reducer = combineReducers({
     form: formReducer
 })
 
-export const store = createStore(reducer, applyMiddleware(thunkMiddleware))
+const enhancer = composeWithDevTools(
+    applyMiddleware(thunkMiddleware)
+    // other store enhancers if any
+);
+export const store = createStore(reducer, enhancer,)
 
 // @ts-ignore
 window.store = store

@@ -5,7 +5,8 @@ import {MyPostsType} from './MyPostsContainer';
 import {PostFormType, PostReduxForm} from '../PostForm/AddNewPostForm';
 
 
-export const MyPosts: FC<MyPostsType> = ({profilePost, addPost}) => {
+export const MyPosts: FC<MyPostsType> = React.memo( ({profilePost, addPost}) => {
+
 
     const postsElement = profilePost.map((e) => {
         return (
@@ -28,5 +29,4 @@ export const MyPosts: FC<MyPostsType> = ({profilePost, addPost}) => {
 
         </div>
     );
-}
-
+} )

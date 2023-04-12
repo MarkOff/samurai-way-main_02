@@ -5,9 +5,10 @@ import {Dispatch} from 'react';
 
 const ADD_POST = 'ADD_POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
-const SET_USER_PROFILE = 'SET_USER_PROFILE'
+export const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const GET_USER_STATUS = 'GET_USER_STATUS'
 const UPDATE_STATUS = 'UPDATE_STATUS'
+const DELETE_POST = 'DELETE_POST'
 
 const initialState = {
     posts: [
@@ -24,6 +25,12 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Un
     switch (action.type) {
         case ADD_POST: {
             return {...state, posts: [{id: v1(), message: action.postFormBody, counterLike: '0'}, ...state.posts]}
+        }
+
+        case DELETE_POST: {
+            return {
+                ...state, posts: state.posts.filter(el => el.id !== action.postId)
+            }
         }
 
         case SET_USER_PROFILE: {
@@ -47,27 +54,16 @@ export type UniversalTypeForProfileActions =
     | ReturnType<typeof addPostAC>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof getUserStatus>
+    | ReturnType<typeof deletePostAC>
 
 
 export const addPostAC = (postFormBody: string) => ({type: ADD_POST, postFormBody} as const)
 
+export const deletePostAC = (postId: string) => ({type: DELETE_POST, postId} as const)
 
-export const setUserProfile = (profile: UserProfileType) => {
-    return (
-        {
-            type: SET_USER_PROFILE,
-            profile
-        } as const
-    )
-}
-export const getUserStatus = (status: string) => {
-    return (
-        {
-            type: GET_USER_STATUS,
-            status
-        } as const
-    )
-}
+export const setUserProfile = (profile: UserProfileType) => ({type: SET_USER_PROFILE, profile} as const)
+
+export const getUserStatus = (status: string) => ({type: GET_USER_STATUS, status} as const)
 
 
 export const setProfileTC = (userId: string) => {
