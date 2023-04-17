@@ -3,7 +3,6 @@ import s from './ProfileInfo.module.css';
 import {UsersProfilePropsType} from '../ProfileContainer';
 import {Preloader} from '../../common/Preloader/Preloader';
 import defaultAva from '../../../avatars/765-default-avatar.png'
-import {ProfileStatus} from './ProfileStatus';
 import {ProfileStatusWithHooks} from 'components/Profile/ProfileInfo/ProfileStatusWithHooks';
 
 export const ProfileInfo = (props: UsersProfilePropsType) => {

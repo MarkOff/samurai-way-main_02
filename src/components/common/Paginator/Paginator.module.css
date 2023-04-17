@@ -1,0 +1,36 @@
+.selectedPage{
+    font-weight: bold;
+    padding: 0 5px ;
+    /*cursor: pointer;*/
+    border: 2px solid orange;
+    background-color: #c6c6c6;
+    height: 30px;
+    width: 30px;
+}
+
+.selectedPage:disabled {
+    color: black;
+}
+
+.spanForPage {
+    cursor: pointer;
+    /*padding: 5px;*/
+    padding: 0px 5px ;
+    background-color: #c6c6c6;
+    border: none;
+    height: 20px;
+    width: 20px;
+}
+
+.spanForPage:hover {
+    cursor: pointer;
+    /*padding: 5px;*/
+    background-color: #a8a7a7;
+}
+
+.pageBar {
+    display: flex;
+    gap: 5px;
+    margin: 5px 0 0 5px;
+    align-items: center;
+}

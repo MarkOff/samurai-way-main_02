@@ -138,7 +138,7 @@ const enhancer = composeWithDevTools(
     applyMiddleware(thunkMiddleware)
     // other store enhancers if any
 );
-export const store = createStore(reducer, enhancer,)
+export const store = createStore(reducer, enhancer)
 
 // @ts-ignore
 window.store = store

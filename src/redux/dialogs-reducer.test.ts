@@ -1,6 +1,5 @@
 import {v1} from 'uuid';
 import {MessagesPageType} from 'redux/redux-store';
-import {followAccess, usersReducer} from 'redux/users-reducer';
 import {dialogsReducer, sendMessageAC} from 'redux/dialogs-reducer';
 
 

@@ -39,21 +39,23 @@ type MapDispatchPropsType = {
 // Server Call ----------------------------------------------------------------------------------------------------------------------
 class UsersContainer extends React.Component<UsersPropsType> {
 
-
     componentDidMount() {
-        this.props.getUser(this.props.currentPage, this.props.pageSize)
+        const {currentPage, pageSize} = this.props
+        this.props.getUser(currentPage, pageSize)
     }
 
-    onFollowHandler = (userId: string) => {
-        this.props.onFollowUser(userId)
-    }
+    // onFollowHandler = (userId: string) => {
+    //     this.props.onFollowUser(userId)
+    // }
+    //
+    // onUnfollowHandler = (userId: string) => {
+    //     this.props.onUnfollowUser(userId)
+    //
+    // }
 
-    onUnfollowHandler = (userId: string) => {
-        this.props.onUnfollowUser(userId)
-
-    }
     onSwitchPageHandler = (currentPage: number) => {
-        this.props.forPageSwitch(currentPage, this.props.pageSize)
+        const {pageSize} = this.props
+        this.props.forPageSwitch(currentPage, pageSize)
     }
 
     render() {
