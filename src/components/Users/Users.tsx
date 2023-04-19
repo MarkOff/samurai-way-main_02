@@ -18,7 +18,7 @@ export const Users = (props: UsersPropsType) => {
 
     return (
         <div>
-            <Paginator currentPage={currentPage} forPageSwitch={forPageSwitch} totalUserCount={totalUserCount}
+            <Paginator currentPage={currentPage} forPageSwitch={forPageSwitch} portionSize={pageSize} totalItemsCount={totalUserCount}
                        pageSize={pageSize}/>
             <div>
                 {users.map(el => <User key={el.id} user={el} onFollowUser={onFollowUser}

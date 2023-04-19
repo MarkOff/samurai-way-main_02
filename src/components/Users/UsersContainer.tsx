@@ -100,8 +100,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         totalUserCount: selectTotalCount(state),
         currentPage: selectCurrentPage(state),
         isFetching: selectIsFetching(state),
-        followingInProgress: selectFollowingInProgress(state)
-
+        followingInProgress: selectFollowingInProgress(state),
     }
 }
 

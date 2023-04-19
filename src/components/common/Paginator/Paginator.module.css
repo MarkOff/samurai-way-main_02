@@ -1,36 +1,67 @@
-.selectedPage{
-    font-weight: bold;
-    padding: 0 5px ;
-    /*cursor: pointer;*/
-    border: 2px solid orange;
-    background-color: #c6c6c6;
-    height: 30px;
-    width: 30px;
+.pageBar {
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    /*width: 500px;*/
+    gap: 7px;
+    align-items: center;
+    margin-right: 15px;
 }
+
+.selectedPage {
+    font-weight: bold;
+    padding: 0 5px;
+    border: 3px solid orange;
+    background-color: #c6c6c6;
+    height: 35px;
+    width: 45px;
+}
+
 
 .selectedPage:disabled {
     color: black;
+    background-color: #a8a7a7;
 }
 
 .spanForPage {
     cursor: pointer;
-    /*padding: 5px;*/
-    padding: 0px 5px ;
+    padding: 0px 5px;
     background-color: #c6c6c6;
     border: none;
-    height: 20px;
-    width: 20px;
+    height: 30px;
+    width: 40px;
 }
+
 
 .spanForPage:hover {
     cursor: pointer;
-    /*padding: 5px;*/
     background-color: #a8a7a7;
 }
 
-.pageBar {
-    display: flex;
-    gap: 5px;
-    margin: 5px 0 0 5px;
-    align-items: center;
+.spanForPage:active {
+    background: orange;
+    transform: translate(0em, 0em);
 }
+
+
+.selectButton {
+    background-color: orange;
+    height: 30px;
+    border: 3px solid black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.selectButton:active {
+    background: #f1cb7f;
+    transform: translate(0em, 0em);
+}
+
+.selectButton:disabled {
+    background-color: #f1cb7f;
+    color: black;
+    font-weight: normal;
+    height: 30px;
+    cursor: initial;
+}
+
