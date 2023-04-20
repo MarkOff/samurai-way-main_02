@@ -3,7 +3,7 @@ import {v1} from 'uuid';
 import {ProfilePageType, UserProfileType} from 'redux/redux-store';
 
 
-let state: ProfilePageType = {posts: [], profile: null, status: ''}
+let state: ProfilePageType = {posts: [], profile: null, status: '', isOwner: false,}
 
 beforeEach(() => {
     state = {
@@ -14,7 +14,8 @@ beforeEach(() => {
             {id: v1(), message: 'GG', counterLike: '1'},
         ],
         profile: null,
-        status: ''
+        status: '',
+        isOwner: false,
     }
 })
 

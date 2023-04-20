@@ -33,6 +33,7 @@ export type ProfilePageType = {
     posts: PostsProps[]
     profile: UserProfileType | null
     status: string
+    isOwner: boolean,
 }
 
 export type HeaderType = {

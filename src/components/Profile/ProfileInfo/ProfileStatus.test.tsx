@@ -3,7 +3,7 @@ import {create} from 'react-test-renderer';
 import {ProfileStatus} from 'components/Profile/ProfileInfo/ProfileStatus';
 import {UserProfileType} from 'redux/redux-store';
 import {v1} from 'uuid';
-import {getUserStatusTC, setProfileTC, updateStatusTC} from 'redux/profile-reducer';
+import {getUserStatusTC, savePhoto, setProfileTC, updateStatusTC} from 'redux/profile-reducer';
 
 describe('ProfileStatus component', () => {
     const testProfile: UserProfileType = {
@@ -33,6 +33,7 @@ describe('ProfileStatus component', () => {
         status: 'lol',
         autorizedUserId: '22223',
         isAuth: true,
+        isOwner: false
     }
 
     beforeEach(() => {
@@ -43,7 +44,10 @@ describe('ProfileStatus component', () => {
     test('status from props should be in the  state', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
                                                 autorizedUserId={state.autorizedUserId} getStatus={getUserStatusTC}
-                                                setProfile={setProfileTC} updateStatus={updateStatusTC}/>)
+                                                setProfile={setProfileTC} updateStatus={updateStatusTC}
+                                                savePhoto={savePhoto}
+                                                isOwner={state.isOwner}
+        />)
         const root = component.root;
 
         expect(root.props.status).toBe('lol')
@@ -53,7 +57,10 @@ describe('ProfileStatus component', () => {
     test('after creation "span" should be displayed', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
                                                 autorizedUserId={state.autorizedUserId} getStatus={getUserStatusTC}
-                                                setProfile={setProfileTC} updateStatus={updateStatusTC}/>)
+                                                setProfile={setProfileTC} updateStatus={updateStatusTC}
+                                                isOwner={state.isOwner}
+                                                savePhoto={savePhoto}
+        />)
         const root = component.root;
         let span = root.findByType('span');
 
@@ -63,7 +70,10 @@ describe('ProfileStatus component', () => {
     test('after creation "input" shouldn\'t\ be displayed', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
                                                 autorizedUserId={state.autorizedUserId} getStatus={getUserStatusTC}
-                                                setProfile={setProfileTC} updateStatus={updateStatusTC}/>)
+                                                setProfile={setProfileTC} updateStatus={updateStatusTC}
+                                                isOwner={state.isOwner}
+                                                savePhoto={savePhoto}
+        />)
         const root = component.root;
 
 
@@ -75,7 +85,10 @@ describe('ProfileStatus component', () => {
     test('after creation "span" should contains correct status', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
                                                 autorizedUserId={state.autorizedUserId} getStatus={getUserStatusTC}
-                                                setProfile={setProfileTC} updateStatus={updateStatusTC}/>)
+                                                setProfile={setProfileTC} updateStatus={updateStatusTC}
+                                                isOwner={state.isOwner}
+                                                savePhoto={savePhoto}
+        />)
         const root = component.root;
         let span = root.findByType('span');
         expect(span.children[0]).toBe(' ')
@@ -85,7 +98,10 @@ describe('ProfileStatus component', () => {
     test('input should be displayed in editMode', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
                                                 autorizedUserId={state.autorizedUserId} getStatus={getUserStatusTC}
-                                                setProfile={setProfileTC} updateStatus={updateStatusTC}/>)
+                                                setProfile={setProfileTC} updateStatus={updateStatusTC}
+                                                isOwner={state.isOwner}
+                                                savePhoto={savePhoto}
+        />)
         const root = component.root;
         let span = root.findByType('span');
         span.props.onDoubleClick()
@@ -98,7 +114,10 @@ describe('ProfileStatus component', () => {
         const mockCallback = jest.fn()
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
                                                 autorizedUserId={state.autorizedUserId} getStatus={getUserStatusTC}
-                                                setProfile={setProfileTC} updateStatus={mockCallback}/>)
+                                                setProfile={setProfileTC} updateStatus={mockCallback}
+                                                isOwner={state.isOwner}
+                                                savePhoto={savePhoto}
+        />)
         const instance = component.getInstance();
         instance?.props.deactivateEditMode;
         console.log(instance)

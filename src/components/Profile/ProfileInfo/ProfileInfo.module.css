@@ -9,9 +9,10 @@
 
 .avatar {
     border-radius: 50%;
-    height:150px;
-    width:150px;
+    height:200px;
+    width:200px;
     padding: 10px;
+    cursor: pointer;
 }
 
 .name {
@@ -70,4 +71,24 @@
     border: none;
     align-items: center;
     align-content: center;
+}
+
+.inputPhoto {
+  /*visibility: hidden;*/
+    cursor: pointer;
+    width: 1px;
+    height: 1px;
+    background-color: red;
+}
+
+.labelPhoto {
+    border-radius: 50%;
+    margin-right: 10px;
+    height:200px;
+    width:200px;
+    cursor: pointer;
+}
+
+.labelPhoto:hover {
+    opacity: 0.8;
 }

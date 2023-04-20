@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent, MouseEvent} from 'react';
 import s from './ProfileInfo.module.css';
 import {UsersProfilePropsType} from '../ProfileContainer';
 import {Preloader} from '../../common/Preloader/Preloader';
@@ -6,14 +6,20 @@ import defaultAva from '../../../avatars/765-default-avatar.png'
 import {ProfileStatusWithHooks} from 'components/Profile/ProfileInfo/ProfileStatusWithHooks';
 
 export const ProfileInfo = (props: UsersProfilePropsType) => {
-    const {profile, getStatus, setProfile, updateStatus, status, isAuth, autorizedUserId} = props
+    const {profile, getStatus, setProfile, updateStatus, status, isAuth, isOwner, autorizedUserId, savePhoto} = props
 
     if (!profile) {
         return <Preloader/>
     }
     const hasContacts = Object.values(profile.contacts).some(contact => contact !== null && contact !== '')
     const hasAboutMe = profile.aboutMe !== null ? `About me: ${profile.aboutMe}` : ''
-    const hasStatusJob = profile.lookingForAJobDescription !== null? `Status Job:${profile.lookingForAJobDescription}` : ''
+    const hasStatusJob = profile.lookingForAJobDescription !== null ? `Status Job:${profile.lookingForAJobDescription}` : ''
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files?.length) {
+            savePhoto(e.target.files[0])
+        }
+    }
+
 
     return (
         <div>
@@ -22,16 +28,21 @@ export const ProfileInfo = (props: UsersProfilePropsType) => {
             {/*</div>*/}
 
             <div className={s.profileContainer}>
-                <img className={s.avatar}
-                     src={profile.photos.large !== null ? profile.photos.large : defaultAva}/>
+                <label className={s.labelPhoto}>
+                    <img className={s.avatar} alt={'Main avatar'} aria-label="updload photo"
+                         src={profile.photos.large !== null ? profile.photos.large : defaultAva}/>
+                    {isOwner && <input type="file" onChange={onMainPhotoSelected} className={s.inputPhoto}/>}
+                </label>
+
 
                 <div className={s.name}>
                     {profile.fullName}
                     <div className={s.status}>
-                        <ProfileStatusWithHooks status={status} updateStatus={updateStatus}
-                                       setProfile={setProfile} profile={profile}
-                                       getStatus={getStatus} autorizedUserId={autorizedUserId}
-                                       isAuth={isAuth}
+                        <ProfileStatusWithHooks savePhoto={savePhoto} isOwner={isOwner} status={status}
+                                                updateStatus={updateStatus}
+                                                setProfile={setProfile} profile={profile}
+                                                getStatus={getStatus} autorizedUserId={autorizedUserId}
+                                                isAuth={isAuth}
                         />
                     </div>
                     <div className={s.aboutMe}>{hasAboutMe}</div>

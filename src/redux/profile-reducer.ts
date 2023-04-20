@@ -10,8 +10,9 @@ const ADD_POST = 'PROFILE/ADD_POST'
 const SET_USER_PROFILE = 'PROFILE/SET_USER_PROFILE'
 const GET_USER_STATUS = 'PROFILE/GET_USER_STATUS'
 const DELETE_POST = 'PROFILE/DELETE_POST'
+const SAVE_PHOTO_SUCCESS = 'PROFILE/SAVE_PHOTO_SUCCESS'
 
-const initialState = {
+const initialState: ProfilePageType = {
     posts: [
         {id: v1(), message: 'Hi, it\'s  my first post', counterLike: '12'},
         {id: v1(), message: 'Hola, howe are you?', counterLike: '24'},
@@ -19,7 +20,8 @@ const initialState = {
         {id: v1(), message: 'GG', counterLike: '1'},
     ],
     profile: null,
-    status: ''
+    status: '',
+    isOwner: false,
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: UniversalTypeForProfileActions) => {
@@ -45,6 +47,13 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Un
                 status: action.status
             }
         }
+        case SAVE_PHOTO_SUCCESS: {
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos} as UserProfileType
+
+            }
+        }
         default:
             return state
     }
@@ -56,6 +65,7 @@ export type UniversalTypeForProfileActions =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof getUserStatus>
     | ReturnType<typeof deletePostAC>
+    | ReturnType<typeof savePhotoSuccess>
 
 
 export const addPostAC = (postFormBody: string) => ({type: ADD_POST, postFormBody} as const)
@@ -65,26 +75,38 @@ export const deletePostAC = (postId: string) => ({type: DELETE_POST, postId} as 
 export const setUserProfile = (profile: UserProfileType) => ({type: SET_USER_PROFILE, profile} as const)
 
 export const getUserStatus = (status: string) => ({type: GET_USER_STATUS, status} as const)
+export const savePhotoSuccess = (photos: { small: string, large: string }) => ({
+    type: SAVE_PHOTO_SUCCESS,
+    photos
+} as const)
 
 
 export const setProfileTC = (userId: string) =>
-     async (dispatch: Dispatch<UniversalTypeForProfileActions>) => {
+    async (dispatch: Dispatch<UniversalTypeForProfileActions>) => {
         const response = await profileApi.setProfile(userId)
         dispatch(setUserProfile(response.data))
     }
 
 
 export const getUserStatusTC = (userId: string) =>
-     async (dispatch: Dispatch<UniversalTypeForProfileActions>) => {
+    async (dispatch: Dispatch<UniversalTypeForProfileActions>) => {
         const response = await profileApi.getStatus(userId)
         dispatch(getUserStatus(response.data))
     }
 
 
 export const updateStatusTC = (status: string) =>
-     async (dispatch: Dispatch<UniversalTypeForProfileActions>) => {
+    async (dispatch: Dispatch<UniversalTypeForProfileActions>) => {
         const response = await profileApi.updateStatus(status)
         if (response.data.resultCode === ResultCode.Success) {
             dispatch(getUserStatus(status))
+        }
+    }
+export const savePhoto = (file: File) =>
+    async (dispatch: Dispatch<UniversalTypeForProfileActions>) => {
+        const response = await profileApi.savePhoto(file)
+
+        if (response.data.resultCode === ResultCode.Success) {
+            dispatch(savePhotoSuccess(response.data.data.photos))
         }
     }
