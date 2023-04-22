@@ -1,5 +1,5 @@
-import React, {ChangeEvent, LegacyRef, RefObject} from 'react';
-import {UsersProfilePropsType} from '../ProfileContainer';
+import React, {ChangeEvent} from 'react';
+import {UsersProfilePropsType} from 'components/Profile/ProfileContainer';
 
 export class ProfileStatus extends React.Component <UsersProfilePropsType> {
 

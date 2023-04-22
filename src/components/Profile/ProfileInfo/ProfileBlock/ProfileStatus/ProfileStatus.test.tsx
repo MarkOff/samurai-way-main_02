@@ -1,6 +1,6 @@
 import React from 'react';
 import {create} from 'react-test-renderer';
-import {ProfileStatus} from 'components/Profile/ProfileInfo/ProfileStatus';
+import {ProfileStatus} from 'components/Profile/ProfileInfo/ProfileBlock/ProfileStatus/ProfileStatus';
 import {UserProfileType} from 'redux/redux-store';
 import {v1} from 'uuid';
 import {getUserStatusTC, savePhoto, setProfileTC, updateStatusTC} from 'redux/profile-reducer';

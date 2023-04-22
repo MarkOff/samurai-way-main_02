@@ -79,7 +79,7 @@ export type UserType = {
 export type UserProfileType = {
     aboutMe: string,
     contacts: {
-        facebook: string,
+        facebook: null |string,
         website: null | string,
         vk: null | string,
         twitter: null | string,

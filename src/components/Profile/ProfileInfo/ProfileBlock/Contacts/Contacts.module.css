@@ -1,0 +1,16 @@
+.contacts {
+    margin-left: 400px;
+    color: black;
+    margin-top: 18px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    height: 20px;
+
+}
+
+.contacts a {
+    text-decoration: none;
+    color: navajowhite;
+}
