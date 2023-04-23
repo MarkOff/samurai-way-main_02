@@ -3,7 +3,7 @@ import {create} from 'react-test-renderer';
 import {ProfileStatus} from 'components/Profile/ProfileInfo/ProfileBlock/ProfileStatus/ProfileStatus';
 import {UserProfileType} from 'redux/redux-store';
 import {v1} from 'uuid';
-import {getUserStatusTC, savePhoto, setProfileTC, updateStatusTC} from 'redux/profile-reducer';
+import {getUserStatusTC, savePhoto, saveProfile, setProfileTC, updateStatusTC} from 'redux/profile-reducer';
 
 describe('ProfileStatus component', () => {
     const testProfile: UserProfileType = {
@@ -46,7 +46,7 @@ describe('ProfileStatus component', () => {
                                                 autorizedUserId={state.autorizedUserId} getStatus={getUserStatusTC}
                                                 setProfile={setProfileTC} updateStatus={updateStatusTC}
                                                 savePhoto={savePhoto}
-                                                isOwner={state.isOwner}
+                                                isOwner={state.isOwner} saveProfile={saveProfile}
         />)
         const root = component.root;
 
@@ -58,7 +58,7 @@ describe('ProfileStatus component', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
                                                 autorizedUserId={state.autorizedUserId} getStatus={getUserStatusTC}
                                                 setProfile={setProfileTC} updateStatus={updateStatusTC}
-                                                isOwner={state.isOwner}
+                                                isOwner={state.isOwner} saveProfile={saveProfile}
                                                 savePhoto={savePhoto}
         />)
         const root = component.root;
@@ -71,7 +71,7 @@ describe('ProfileStatus component', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
                                                 autorizedUserId={state.autorizedUserId} getStatus={getUserStatusTC}
                                                 setProfile={setProfileTC} updateStatus={updateStatusTC}
-                                                isOwner={state.isOwner}
+                                                isOwner={state.isOwner} saveProfile={saveProfile}
                                                 savePhoto={savePhoto}
         />)
         const root = component.root;
@@ -86,7 +86,7 @@ describe('ProfileStatus component', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
                                                 autorizedUserId={state.autorizedUserId} getStatus={getUserStatusTC}
                                                 setProfile={setProfileTC} updateStatus={updateStatusTC}
-                                                isOwner={state.isOwner}
+                                                isOwner={state.isOwner} saveProfile={saveProfile}
                                                 savePhoto={savePhoto}
         />)
         const root = component.root;
@@ -99,7 +99,7 @@ describe('ProfileStatus component', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
                                                 autorizedUserId={state.autorizedUserId} getStatus={getUserStatusTC}
                                                 setProfile={setProfileTC} updateStatus={updateStatusTC}
-                                                isOwner={state.isOwner}
+                                                isOwner={state.isOwner} saveProfile={saveProfile}
                                                 savePhoto={savePhoto}
         />)
         const root = component.root;
@@ -115,7 +115,7 @@ describe('ProfileStatus component', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
                                                 autorizedUserId={state.autorizedUserId} getStatus={getUserStatusTC}
                                                 setProfile={setProfileTC} updateStatus={mockCallback}
-                                                isOwner={state.isOwner}
+                                                isOwner={state.isOwner} saveProfile={saveProfile}
                                                 savePhoto={savePhoto}
         />)
         const instance = component.getInstance();

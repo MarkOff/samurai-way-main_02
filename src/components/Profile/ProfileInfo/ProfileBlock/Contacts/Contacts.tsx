@@ -1,5 +1,4 @@
 import React, {FC} from 'react';
-import {UserProfileType} from 'redux/redux-store';
 import s from 'components/Profile/ProfileInfo/ProfileBlock/Contacts/Contacts.module.css';
 
 type ContactKeys = 'facebook' | 'website' | 'vk' | 'twitter' | 'instagram' | 'youtube' | 'github' | 'mainLink'

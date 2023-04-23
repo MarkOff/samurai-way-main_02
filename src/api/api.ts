@@ -22,7 +22,7 @@ export const userApi = {
 }
 
 export const profileApi = {
-    setProfile(userId: string) {
+    setProfile(userId: string | null ) {
         return instance.get(`profile/${userId}`)
     },
     getStatus(userId: string) {
@@ -36,6 +36,9 @@ export const profileApi = {
         formData.append('image', photoFile)
 
         return instance.put(`profile/photo`, formData, {headers: {'Content-Type': 'multipart/form-data'} })
+    } ,
+    saveProfile(profile: UpdateUserProfileType) {
+        return instance.put(`profile`, profile)
     }
 }
 
@@ -52,3 +55,20 @@ export const authAPI = {
 }
 
 
+export type UpdateUserProfileType = {
+    aboutMe: string,
+    contacts: {
+        facebook: null |string,
+        website: null | string,
+        vk: null | string,
+        twitter: null | string,
+        instagram: null | string,
+        youtube: null | string,
+        github: null | string,
+        mainLink: null | string
+    },
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
+}

@@ -2,15 +2,19 @@ import React from 'react';
 import {AppStateType, UserProfileType} from 'redux/redux-store';
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
-import {getUserStatusTC, savePhoto, setProfileTC, updateStatusTC} from 'redux/profile-reducer';
+import {AppThunk, getUserStatusTC, savePhoto, saveProfile, setProfileTC, updateStatusTC} from 'redux/profile-reducer';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {compose} from 'redux';
+import {AnyAction, compose} from 'redux';
 import {selectOwner, selectProfile, selectStatus} from 'redux/selectors/profile.selectors';
 import {selectIsAuth, selectUserId} from 'redux/selectors/auth.selectors';
+import {UpdateUserProfileType} from 'api/api';
+import {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import {AxiosResponse} from 'axios';
 
 
 export type UsersProfilePropsType = MapStatePropsType & MapDispatchPropsType
 
+// type MapStatePropsType = ReturnType<typeof mapStateToProps>
 
 type MapStatePropsType = {
     profile: UserProfileType | null
@@ -27,8 +31,8 @@ type MapDispatchPropsType = {
     getStatus: (userId: string) => void
     updateStatus: (status: string) => void
     savePhoto: (file: File) => void
+    saveProfile: (profile: UpdateUserProfileType) => any  //(dispatch: ThunkDispatch<AppStateType, void, AnyAction>, getState: () => AppStateType) => Promise<AxiosResponse<any>>
 }
-
 type PathParamType = {
     userId: string
 }
@@ -71,7 +75,8 @@ class ProfileContainer extends React.Component <PropsType> {
             status,
             autorizedUserId,
             isAuth,
-            savePhoto
+            savePhoto,
+            saveProfile,
         } = this.props
 
         return (
@@ -79,6 +84,7 @@ class ProfileContainer extends React.Component <PropsType> {
                      getStatus={getStatus} updateStatus={updateStatus}
                      status={status} autorizedUserId={autorizedUserId}
                      isAuth={isAuth} isOwner={!this.props.match.params.userId}
+                     saveProfile={saveProfile}
             />
         )
     };
@@ -101,7 +107,8 @@ const mapDispatchToProps: MapDispatchPropsType = {
     setProfile: setProfileTC,
     getStatus: getUserStatusTC,
     updateStatus: updateStatusTC,
-    savePhoto: savePhoto
+    savePhoto: savePhoto,
+    saveProfile: saveProfile,
 }
 
 

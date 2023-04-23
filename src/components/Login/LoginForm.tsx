@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {InjectedFormProps, reduxForm} from 'redux-form';
 import {required} from 'utils/validators/validators';
 import {createField, Input} from '../common/FormsControl/FormsControl';
 import s from './../common/FormsControl/FormControl.module.css'
@@ -9,6 +9,9 @@ export type FormDataType = {
     password: string
     rememberMe: boolean
 }
+
+
+
 
 const LoginFrom: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
 

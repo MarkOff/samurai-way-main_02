@@ -54,10 +54,3 @@ export const ProfileBlock: FC<ProfileBlockType> = ({profile, isOwner, status, up
 };
 
 
-export const ProfileDataForm = () => {
-return(
-<div>
-    Form
-</div>
-)
-}

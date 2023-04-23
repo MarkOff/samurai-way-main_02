@@ -1,8 +1,12 @@
-import {ProfilePageType, UserProfileType} from './redux-store';
+import {AppStateType, ProfilePageType, UserProfileType} from './redux-store';
 import {v1} from 'uuid';
-import {profileApi} from 'api/api';
+import {profileApi, UpdateUserProfileType} from 'api/api';
 import {Dispatch} from 'react';
 import {ResultCode} from 'components/common/Enums/common.enums';
+import {Action, AnyAction} from 'redux';
+import {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import {stopSubmit} from 'redux-form';
+import {AxiosResponse} from 'axios';
 
 const UPDATE_NEW_POST_TEXT = 'PROFILE/UPDATE_NEW_POST_TEXT'
 const UPDATE_STATUS = 'PROFILE/UPDATE_STATUS'
@@ -81,7 +85,7 @@ export const savePhotoSuccess = (photos: { small: string, large: string }) => ({
 } as const)
 
 
-export const setProfileTC = (userId: string) =>
+export const setProfileTC = (userId: string | null) =>
     async (dispatch: Dispatch<UniversalTypeForProfileActions>) => {
         const response = await profileApi.setProfile(userId)
         dispatch(setUserProfile(response.data))
@@ -109,4 +113,24 @@ export const savePhoto = (file: File) =>
         if (response.data.resultCode === ResultCode.Success) {
             dispatch(savePhotoSuccess(response.data.data.photos))
         }
+    }
+    export type AppThunk<ReturnType = void> = ThunkAction<
+    ReturnType,
+    any, //my store state
+    null,
+    AnyAction
+>
+export const saveProfile = (profile: UpdateUserProfileType): (dispatch: ThunkDispatch<AppStateType, void, AnyAction>, getState: () => AppStateType) => Promise<AxiosResponse<any>> =>
+    async (dispatch: ThunkDispatch<AppStateType, void, AnyAction>, getState: () => AppStateType): Promise<AxiosResponse<any>> => {
+        const userId = getState().auth.userId
+
+        const response = await profileApi.saveProfile(profile)
+
+        if (response.data.resultCode === ResultCode.Success) {
+             dispatch(setProfileTC(userId))
+        } else {
+            dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}))
+            return Promise.reject(response.data.messages[0])
+        }
+        return response
     }
