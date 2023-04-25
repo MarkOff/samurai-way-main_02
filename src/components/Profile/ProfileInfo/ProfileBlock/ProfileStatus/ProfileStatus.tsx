@@ -1,7 +1,9 @@
 import React, {ChangeEvent} from 'react';
 import {UsersProfilePropsType} from 'components/Profile/ProfileContainer';
 
-export class ProfileStatus extends React.Component <UsersProfilePropsType> {
+type Props = Partial<Omit<UsersProfilePropsType, 'saveProfile'>>
+
+export class ProfileStatus extends React.Component <Props> {
 
     state = {
         editMode: false,
@@ -17,7 +19,10 @@ export class ProfileStatus extends React.Component <UsersProfilePropsType> {
         this.setState({
             editMode: false
         });
-        this.props.updateStatus(this.state.status)
+        if (this.props.updateStatus) {
+            this.props.updateStatus(this.state.status!)
+        }
+
     }
 
     onStatusChange = (e:ChangeEvent<HTMLInputElement>) => {

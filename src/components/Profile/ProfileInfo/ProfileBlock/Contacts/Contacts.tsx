@@ -26,7 +26,7 @@ export const Contacts: FC<ContactsType> = ({contacts}) => {
                 <b>Contacts:</b> {Object.keys(contacts)
                 .filter((key) => {
                     const contactKey = key as unknown as ContactKeys
-                    return contacts[contactKey] !== undefined && contacts[contactKey] !== null
+                    return contacts[contactKey] !== undefined && contacts[contactKey] !== null &&  contacts[contactKey] !== ''
                 })
                 .map(key => {
                     const contactKey = key as unknown as ContactKeys

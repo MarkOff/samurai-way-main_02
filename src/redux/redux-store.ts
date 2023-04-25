@@ -45,6 +45,7 @@ export type AuthType = {
     email: string | null
     login: string | null
     isAuth: boolean
+    captchaUrl: string | null
     isFetching?: boolean
 }
 

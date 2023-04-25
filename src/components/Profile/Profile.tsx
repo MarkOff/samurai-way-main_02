@@ -1,17 +1,27 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {MyPostsContainer} from './MyPosts/MyPostsContainer';
 import {UsersProfilePropsType} from './ProfileContainer';
+import {type} from '@testing-library/user-event/dist/type';
+import {UserProfileType} from 'redux/redux-store';
+import {UpdateUserProfileType} from 'api/api';
+import {setProfile} from 'redux/profile-reducer';
+
+type Props = {
+    profile: UserProfileType | null
+    status: string
+    isOwner: boolean
+    updateStatus: (status: string) => void
+    savePhoto: (file: File) => void
+    saveProfile: (profile: UpdateUserProfileType) => Promise<any>
+}
 
 
-export const Profile = (props: UsersProfilePropsType) => {
-    const {profile, setProfile, getStatus, updateStatus, status, isAuth, autorizedUserId, isOwner, savePhoto, saveProfile} = props
-
+export const Profile: FC<Props> = ({profile, saveProfile, savePhoto, updateStatus, status, isOwner}) => {
     return (
         <div>
-            <ProfileInfo profile={profile} getStatus={getStatus} setProfile={setProfile}
-                         updateStatus={updateStatus} status={status} isAuth={isAuth} saveProfile={saveProfile}
-                         autorizedUserId={autorizedUserId} isOwner={isOwner} savePhoto = {savePhoto}
+            <ProfileInfo profile={profile} updateStatus={updateStatus} status={status} saveProfile={saveProfile}
+                         isOwner={isOwner} savePhoto={savePhoto}
             />
             <MyPostsContainer/>
         </div>

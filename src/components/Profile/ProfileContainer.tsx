@@ -2,14 +2,12 @@ import React from 'react';
 import {AppStateType, UserProfileType} from 'redux/redux-store';
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
-import {AppThunk, getUserStatusTC, savePhoto, saveProfile, setProfileTC, updateStatusTC} from 'redux/profile-reducer';
+import {getUserStatus, savePhoto, saveProfile, setProfile, setUserStatus, updateStatus} from 'redux/profile-reducer';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {AnyAction, compose} from 'redux';
+import {compose} from 'redux';
 import {selectOwner, selectProfile, selectStatus} from 'redux/selectors/profile.selectors';
 import {selectIsAuth, selectUserId} from 'redux/selectors/auth.selectors';
 import {UpdateUserProfileType} from 'api/api';
-import {ThunkAction, ThunkDispatch} from 'redux-thunk';
-import {AxiosResponse} from 'axios';
 
 
 export type UsersProfilePropsType = MapStatePropsType & MapDispatchPropsType
@@ -28,10 +26,10 @@ type MapStatePropsType = {
 
 type MapDispatchPropsType = {
     setProfile: (userId: string) => void
-    getStatus: (userId: string) => void
+    setUserStatus: (userId: string) => void
     updateStatus: (status: string) => void
     savePhoto: (file: File) => void
-    saveProfile: (profile: UpdateUserProfileType) => any  //(dispatch: ThunkDispatch<AppStateType, void, AnyAction>, getState: () => AppStateType) => Promise<AxiosResponse<any>>
+    saveProfile: (profile: UpdateUserProfileType) => Promise<any>  //(dispatch: ThunkDispatch<AppStateType, void, AnyAction>, getState: () => AppStateType) => Promise<AxiosResponse<any>>
 }
 type PathParamType = {
     userId: string
@@ -52,7 +50,7 @@ class ProfileContainer extends React.Component <PropsType> {
 
         }
         this.props.setProfile(userId)
-        this.props.getStatus(userId)
+        this.props.setUserStatus(userId)
     }
 
     componentDidMount() {
@@ -67,23 +65,11 @@ class ProfileContainer extends React.Component <PropsType> {
     }
 
     render() {
-        const {
-            profile,
-            setProfile,
-            getStatus,
-            updateStatus,
-            status,
-            autorizedUserId,
-            isAuth,
-            savePhoto,
-            saveProfile,
-        } = this.props
+        const {profile, updateStatus, status, savePhoto, saveProfile} = this.props
 
         return (
-            <Profile profile={profile} setProfile={setProfile} savePhoto={savePhoto}
-                     getStatus={getStatus} updateStatus={updateStatus}
-                     status={status} autorizedUserId={autorizedUserId}
-                     isAuth={isAuth} isOwner={!this.props.match.params.userId}
+            <Profile profile={profile} savePhoto={savePhoto} updateStatus={updateStatus}
+                     status={status} isOwner={!this.props.match.params.userId}
                      saveProfile={saveProfile}
             />
         )
@@ -103,16 +89,16 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 
-const mapDispatchToProps: MapDispatchPropsType = {
-    setProfile: setProfileTC,
-    getStatus: getUserStatusTC,
-    updateStatus: updateStatusTC,
-    savePhoto: savePhoto,
-    saveProfile: saveProfile,
-}
+// const mapDispatchToProps: MapDispatchPropsType = {
+//     setProfile: setProfileTC,
+//     getStatus: getUserStatusTC,
+//     updateStatus: updateStatusTC,
+//     savePhoto: savePhoto,
+//     saveProfile: saveProfile,
+// }
 
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(mapStateToProps, {setProfile, setUserStatus, updateStatus, savePhoto, saveProfile}),
     withRouter,
 )(ProfileContainer)

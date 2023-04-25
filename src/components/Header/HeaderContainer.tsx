@@ -2,7 +2,7 @@ import React from 'react';
 import {AppStateType} from 'redux/redux-store';
 import {Header} from './Header';
 import {connect} from 'react-redux';
-import {logoutTC} from 'redux/auth-reducer';
+import {logout} from 'redux/auth-reducer';
 import {selectEmail, selectIsAuth, selectLogin, selectUserId} from 'redux/selectors/auth.selectors';
 
 
@@ -53,7 +53,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 const mapDispatchToProps: MapDispatchPropsType = {
-    logout: logoutTC
+    logout: logout
 }
 
 

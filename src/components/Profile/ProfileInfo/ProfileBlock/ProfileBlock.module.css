@@ -7,3 +7,12 @@
     display: flex;
 }
 
+.blockNameAndStatus {
+    display: flex;
+    min-width: 400px;
+    max-width: 400px;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+

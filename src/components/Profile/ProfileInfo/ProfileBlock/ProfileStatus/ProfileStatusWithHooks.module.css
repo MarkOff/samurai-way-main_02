@@ -1,8 +1,9 @@
 .status {
+    display: flex;
     font-size: 20px;
+    max-width: 400px;
     color: black;
     font-weight: normal;
-    max-width: 350px;
     cursor: pointer;
 }
 

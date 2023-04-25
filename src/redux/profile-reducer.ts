@@ -85,21 +85,21 @@ export const savePhotoSuccess = (photos: { small: string, large: string }) => ({
 } as const)
 
 
-export const setProfileTC = (userId: string | null) =>
+export const setProfile = (userId: string | null) =>
     async (dispatch: Dispatch<UniversalTypeForProfileActions>) => {
         const response = await profileApi.setProfile(userId)
         dispatch(setUserProfile(response.data))
     }
 
 
-export const getUserStatusTC = (userId: string) =>
+export const setUserStatus = (userId: string) =>
     async (dispatch: Dispatch<UniversalTypeForProfileActions>) => {
         const response = await profileApi.getStatus(userId)
         dispatch(getUserStatus(response.data))
     }
 
 
-export const updateStatusTC = (status: string) =>
+export const updateStatus = (status: string) =>
     async (dispatch: Dispatch<UniversalTypeForProfileActions>) => {
         const response = await profileApi.updateStatus(status)
         if (response.data.resultCode === ResultCode.Success) {
@@ -120,6 +120,7 @@ export const savePhoto = (file: File) =>
     null,
     AnyAction
 >
+
 export const saveProfile = (profile: UpdateUserProfileType): (dispatch: ThunkDispatch<AppStateType, void, AnyAction>, getState: () => AppStateType) => Promise<AxiosResponse<any>> =>
     async (dispatch: ThunkDispatch<AppStateType, void, AnyAction>, getState: () => AppStateType): Promise<AxiosResponse<any>> => {
         const userId = getState().auth.userId
@@ -127,7 +128,7 @@ export const saveProfile = (profile: UpdateUserProfileType): (dispatch: ThunkDis
         const response = await profileApi.saveProfile(profile)
 
         if (response.data.resultCode === ResultCode.Success) {
-             dispatch(setProfileTC(userId))
+             dispatch(setProfile(userId))
         } else {
             dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}))
             return Promise.reject(response.data.messages[0])

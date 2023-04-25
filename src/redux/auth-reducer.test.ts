@@ -8,6 +8,7 @@ let state: AuthType = {
     email: 'Test Email',
     login: 'Test Login',
     isAuth: false,
+    captchaUrl: null
 }
 
 beforeEach(() => {

@@ -11,8 +11,11 @@ type PropsType = {
     profile: UserProfileType
 }
 
-
-const ProfileDataForm: FC<InjectedFormProps<UserProfileType, PropsType> & PropsType> = ({handleSubmit, profile, error}) => {
+const ProfileDataForm: FC<InjectedFormProps<UserProfileType, PropsType> & PropsType> = ({
+                                                                                            handleSubmit,
+                                                                                            profile,
+                                                                                            error
+                                                                                        }) => {
 
 
     return (
@@ -27,15 +30,15 @@ const ProfileDataForm: FC<InjectedFormProps<UserProfileType, PropsType> & PropsT
             </div>
 
 
-
             <div>
-                <b>Contacts:</b> {Object.keys(profile.contacts).map(key => {
-                return(
-                <div key={key}>
-                    <b>{key}: {createField(Textarea, 'text', 'contacts.' + key , null, null, null)}</b>
-                </div>
-                )
-            })}
+                <b>Contacts:</b> {Object.keys(profile.contacts)
+                .map(key => {
+                    return (
+                        <div key={key}>
+                            <b>{key}: {createField(Textarea, 'text', 'contacts.' + key, null, null, null)}</b>
+                        </div>
+                    )
+                })}
 
             </div>
 
