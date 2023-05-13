@@ -1,4 +1,3 @@
-import {AppType} from './redux-store';
 import {Action} from 'redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {getAuthUserDataTC} from './auth-reducer';
@@ -6,11 +5,12 @@ import {getAuthUserDataTC} from './auth-reducer';
 
 const INITIALIZED_SUCCESS = 'APP/INITIALIZED_SUCCESS'
 
+
 const initialState = {
-    initialized: false,
+    initialized: false as boolean,
 }
 
-export const appReducer = (state: AppType = initialState, action: UniversalTypeForAppType) => {
+export const appReducer = (state = initialState, action: UniversalTypeForAppType): AppType => {
 
     switch (action.type) {
         case INITIALIZED_SUCCESS: {
@@ -25,9 +25,6 @@ export const appReducer = (state: AppType = initialState, action: UniversalTypeF
 
 }
 
-export type UniversalTypeForAppType =
-    | ReturnType<typeof initializedSuccess>
-
 
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS,} as const)
 
@@ -39,3 +36,8 @@ export const initializeApp = () =>
     }
 
 
+// Types-------------------------------------------------------------------------------------------
+export type AppType = typeof initialState
+
+export type UniversalTypeForAppType =
+    | ReturnType<typeof initializedSuccess>

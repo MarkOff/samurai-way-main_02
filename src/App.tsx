@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
 import {Navbar} from 'components/Navbar/Navbar';
-import {Route, withRouter} from 'react-router-dom';
+import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import {News} from 'components/News/News';
 import {Music} from 'components/Music/Music';
 import {Settings} from 'components/Settings/Settings';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import {LoginContainer} from 'components/Login/Login';
+import {Login, LoginContainer} from 'components/Login/Login';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {initializeApp} from 'redux/app-reducer';
@@ -23,7 +23,8 @@ const DialogsContainer = React.lazy(() => import('components/Dialogs/DialogsCont
 
 
 export class App extends React.Component<AppPropsType> {
-    componentDidMount() {
+
+    componentDidMount(){
         // this.props.setToggleIsFetch(true)
         this.props.authMe()
 
@@ -31,7 +32,7 @@ export class App extends React.Component<AppPropsType> {
 
     render() {
 
-        if(!this.props.initialized) {
+        if (!this.props.initialized) {
             return <Preloader/>
         }
 
@@ -41,17 +42,19 @@ export class App extends React.Component<AppPropsType> {
                 <Navbar/>
 
                 <div className="app-contents">
-                    <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)}/>
-                    <Route path="/dialog" render={withSuspense(DialogsContainer)}/>
+                    <Switch>
 
-                    <Route path="/news" render={() => <News/>}/>
-                    <Route path="/music" render={() => <Music/>}/>
-                    <Route path="/settings" render={() => <Settings/>}/>
-                    <Route path="/users" render={() => <UsersContainer/>}/>
+                        <Route exact path="/" render={() => <Redirect to={'/profile'}/>}/>
+                        <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)}/>
+                        <Route path="/dialog" render={withSuspense(DialogsContainer)}/>
+                        <Route path="/news" render={() => <News/>}/>
+                        <Route path="/music" render={() => <Music/>}/>
+                        <Route path="/settings" render={() => <Settings/>}/>
+                        <Route path="/users" render={() => <UsersContainer/>}/>
+                        <Route path="/login" render={() => <LoginContainer/>}/>
+                        <Route path="*" render={() => <div>404 NOT FOUND</div>}/>
 
-                    <Route path="/login" render={() => <LoginContainer/>}/>
-
-
+                    </Switch>
                 </div>
             </div>
 
@@ -68,7 +71,7 @@ type MapDispatchPropsType = {
     authMe: () => void
 }
 
-type AppPropsType  = MapStatePropsType & MapDispatchPropsType
+type AppPropsType = MapStatePropsType & MapDispatchPropsType
 
 
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
@@ -83,7 +86,7 @@ const mapDispatchToProps: MapDispatchPropsType = {
 
 export default compose<React.ComponentType>(
     withRouter,
-    connect(mapStateToProps, mapDispatchToProps)) (App);
+    connect(mapStateToProps, mapDispatchToProps))(App);
 
 
 

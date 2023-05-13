@@ -3,31 +3,32 @@ import {profileReducer, UniversalTypeForProfileActions} from './profile-reducer'
 import {dialogsReducer, UniversalTypeForMessagesPageType} from './dialogs-reducer';
 import {sidebarReducer} from './sidebar-reducer';
 import {UniversalTypeForUserActions, usersReducer} from './users-reducer';
-import {authReducer, UniversalTypeForAuthType} from './auth-reducer';
+import {authReducer, AuthType, UniversalTypeForAuthType} from './auth-reducer';
 import thunkMiddleware from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 import {appReducer} from './app-reducer';
 import { composeWithDevTools } from '@redux-devtools/extension';
-export type StoreType = {
-    _state: StateType
-    getState: () => StateType
-    _callSubscriber: (state: StateType) => void
-    subscribe: (observer: (state: StateType) => void) => void
-    dispatch: (action: RootActionsType) => void
-}
 
-export type RootActionsType = UniversalTypeForMessagesPageType
-    | UniversalTypeForProfileActions
-    | UniversalTypeForUserActions
-    | UniversalTypeForAuthType
+// export type StoreType = {
+//     _state: StateType
+//     getState: () => StateType
+//     _callSubscriber: (state: StateType) => void
+//     subscribe: (observer: (state: StateType) => void) => void
+//     dispatch: (action: RootActionsType) => void
+// }
 
-export type StateType = {
-    profilePage: ProfilePageType
-    messagesPage: MessagesPageType
-    sidebar: SidebarType
-    usersPage: UsersPageType
-    header: HeaderType
-}
+// export type RootActionsType = UniversalTypeForMessagesPageType
+//     | UniversalTypeForProfileActions
+//     | UniversalTypeForUserActions
+//     | UniversalTypeForAuthType
+
+// export type StateType = {
+//     profilePage: ProfilePageType
+//     messagesPage: MessagesPageType
+//     sidebar: SidebarType
+//     usersPage: UsersPageType
+//     header: HeaderType
+// }
 
 export type ProfilePageType = {
     posts: PostsProps[]
@@ -40,19 +41,9 @@ export type HeaderType = {
     auth: AuthType
 }
 
-export type AuthType = {
-    userId: string | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-    captchaUrl: string | null
-    isFetching?: boolean
-}
 
-export type MessagesPageType = {
-    messages: MessagesType[]
-    dialogs: DialogsType[]
-}
+
+
 
 export type SidebarType = {
     friends: FriendsType[]
@@ -103,16 +94,9 @@ export type PostsProps = {
     counterLike: string
 }
 
-export type MessagesType = {
-    id: string
-    message: string
-}
 
-export type  DialogsType = {
-    id: string
-    name: string
-    ava: string
-}
+
+
 
 
 export type FriendsType = {
@@ -121,9 +105,7 @@ export type FriendsType = {
     ava: string
 }
 
-export type AppType = {
-    initialized: boolean
-}
+
 
 //-------------------------------------------------------------------------
 let reducer = combineReducers({

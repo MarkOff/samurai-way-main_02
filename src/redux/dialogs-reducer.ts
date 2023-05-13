@@ -1,4 +1,3 @@
-import {MessagesPageType} from './redux-store';
 import {v1} from 'uuid';
 
 
@@ -50,9 +49,25 @@ export const dialogsReducer = (state: MessagesPageType = initialState, action: U
     }
 
 }
+export const sendMessageAC = (newMessageBody: string) => ({type: SEND_MESSAGE, newMessageBody} as const)
+
+// Types------------------------------------------------------------------------------
+export type MessagesPageType = {
+    messages: MessagesType[]
+    dialogs: DialogsType[]
+}
+
+export type MessagesType = {
+    id: string
+    message: string
+}
+
+export type  DialogsType = {
+    id: string
+    name: string
+    ava: string
+}
 
 export type UniversalTypeForMessagesPageType =
     | ReturnType<typeof sendMessageAC>
-
-export const sendMessageAC = (newMessageBody: string) => ({type: SEND_MESSAGE, newMessageBody} as const)
 

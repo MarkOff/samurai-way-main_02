@@ -101,10 +101,14 @@ export const setUserStatus = (userId: string) =>
 
 export const updateStatus = (status: string) =>
     async (dispatch: Dispatch<UniversalTypeForProfileActions>) => {
-        const response = await profileApi.updateStatus(status)
-        if (response.data.resultCode === ResultCode.Success) {
-            dispatch(getUserStatus(status))
-        }
+       try {
+           const response = await profileApi.updateStatus(status)
+           if (response.data.resultCode === ResultCode.Success) {
+               dispatch(getUserStatus(status))
+           }
+       } catch (e) {
+
+       }
     }
 export const savePhoto = (file: File) =>
     async (dispatch: Dispatch<UniversalTypeForProfileActions>) => {

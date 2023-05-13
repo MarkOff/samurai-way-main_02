@@ -6,9 +6,7 @@ import {DialogsPropsType} from './DialogsContainer';
 import {MessageForm, MessageReduxForm} from './DialogForm/MessageForm';
 
 
-export const Dialogs: FC<DialogsPropsType> = ({dialogs,messages,sendMessage}) => {
-
-
+export const Dialogs: FC<DialogsPropsType> = ({dialogs, messages, sendMessage}) => {
 
 
     const dialogsElements = dialogs.map((e) => {
@@ -24,7 +22,7 @@ export const Dialogs: FC<DialogsPropsType> = ({dialogs,messages,sendMessage}) =>
     })
 
 
-    const addMessage = (values:MessageForm) => {
+    const addMessage = (values: MessageForm) => {
         sendMessage(values.newMessageBody)
     }
 

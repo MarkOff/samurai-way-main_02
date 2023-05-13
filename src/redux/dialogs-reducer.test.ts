@@ -1,6 +1,5 @@
 import {v1} from 'uuid';
-import {MessagesPageType} from 'redux/redux-store';
-import {dialogsReducer, sendMessageAC} from 'redux/dialogs-reducer';
+import {dialogsReducer, MessagesPageType, sendMessageAC} from 'redux/dialogs-reducer';
 
 
 let state: MessagesPageType = {

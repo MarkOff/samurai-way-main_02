@@ -8,6 +8,7 @@ import {compose} from 'redux';
 import {selectOwner, selectProfile, selectStatus} from 'redux/selectors/profile.selectors';
 import {selectIsAuth, selectUserId} from 'redux/selectors/auth.selectors';
 import {UpdateUserProfileType} from 'api/api';
+import {withAuthRedirect} from 'hok/withAuthRedirect';
 
 
 export type UsersProfilePropsType = MapStatePropsType & MapDispatchPropsType
@@ -100,5 +101,6 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {setProfile, setUserStatus, updateStatus, savePhoto, saveProfile}),
+    withAuthRedirect,
     withRouter,
 )(ProfileContainer)

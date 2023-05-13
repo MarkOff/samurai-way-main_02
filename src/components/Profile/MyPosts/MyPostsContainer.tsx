@@ -1,10 +1,9 @@
 import React from 'react';
-import {AppStateType, PostsProps, ProfilePageType, RootActionsType, UserProfileType} from 'redux/redux-store';
+import {AppStateType, PostsProps} from 'redux/redux-store';
 import {addPostAC} from 'redux/profile-reducer';
 import {MyPosts} from './MyPosts';
 import {connect} from 'react-redux';
-import {Dispatch} from 'redux';
-import {selectPost, selectProfile, selectStatus} from 'redux/selectors/profile.selectors';
+import {selectPost} from 'redux/selectors/profile.selectors';
 
 export type MyPostsType = MapStateToPropsType & MapDispatchToPropsType
 

@@ -17,10 +17,20 @@ export const Login: FC<LoginContainerPropsType> = ({login, isAuth, captcha}) => 
     }
     return (
         <div>
-            <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit} captchaUrl={captcha}/>
-        </div>
-    );
+            <p>
+                To log in get registered{' '}
+                <a href={'https://social-network.samuraijs.com/'} target={'_blank'} rel="noreferrer">
+                    here
+                </a>
+            </p>
+            <p>or use common test account credentials:</p>
+            <p> Email: free@samuraijs.com</p>
+            <p>Password: free</p>
+    <h1>Login</h1>
+    <LoginReduxForm onSubmit={onSubmit} captchaUrl={captcha}/>
+</div>
+)
+    ;
 };
 
 

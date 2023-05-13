@@ -1,4 +1,3 @@
-import {AuthType} from './redux-store';
 import {Action, Dispatch} from 'redux';
 import {authAPI, securityAPI} from 'api/api';
 import {ThunkDispatch} from 'redux-thunk';
@@ -9,15 +8,16 @@ import {ResultCode} from 'components/common/Enums/common.enums';
 const SET_USER_DATA = 'AUTH/SET_USER_DATA'
 const GET_CAPTCHA_URL_SUCCESS = 'AUTH/GET_CAPTCHA_URL_SUCCESS'
 
+
 const initialState = {
-    userId: null,
-    email: null,
-    login: null,
-    isAuth: false,
-    captchaUrl: null
+    userId: null as string | null,
+    email: null as string | null,
+    login: null as string | null,
+    isAuth: false as boolean,
+    captchaUrl: null as string | null
 }
 
-export const authReducer = (state: AuthType = initialState, action: UniversalTypeForAuthType) => {
+export const authReducer = (state = initialState, action: UniversalTypeForAuthType): AuthType => {
 
     switch (action.type) {
         case SET_USER_DATA:
@@ -33,10 +33,6 @@ export const authReducer = (state: AuthType = initialState, action: UniversalTyp
     }
 
 }
-
-export type UniversalTypeForAuthType =
-    | ReturnType<typeof setAuthUserData>
-    | ReturnType<typeof getCaptchaUrlSuccess>
 
 
 export const setAuthUserData = (userId: string | null, email: string | null, login: string | null, isAuth: boolean) => (
@@ -74,7 +70,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
             dispatch(getAuthUserDataTC())
         } else {
             if (response.data.resultCode === ResultCode.Captcha) {
-                dispatch(getCaptchaUrl())
+                return dispatch(getCaptchaUrl())
             }
             let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
             dispatch(stopSubmit('login', {_error: message}))
@@ -95,3 +91,9 @@ export const getCaptchaUrl = () =>
         dispatch(getCaptchaUrlSuccess(captchaUrl))
     }
 
+//Types -------------------------------------------------------------------------------------------------
+export type AuthType = typeof initialState
+
+export type UniversalTypeForAuthType =
+    | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof getCaptchaUrlSuccess>

@@ -1,5 +1,4 @@
-import {AppType} from 'redux/redux-store';
-import {appReducer, initializedSuccess} from 'redux/app-reducer';
+import {appReducer, AppType, initializedSuccess} from 'redux/app-reducer';
 
 
 let user = {

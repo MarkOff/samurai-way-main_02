@@ -1,6 +1,4 @@
-import {AuthType} from 'redux/redux-store';
-import {followAccess, usersReducer} from 'redux/users-reducer';
-import {authReducer, setAuthUserData} from 'redux/auth-reducer';
+import {authReducer, AuthType, setAuthUserData} from 'redux/auth-reducer';
 
 
 let state: AuthType = {
