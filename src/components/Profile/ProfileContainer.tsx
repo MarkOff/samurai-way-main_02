@@ -1,36 +1,26 @@
 import React from 'react';
-import {AppStateType, UserProfileType} from 'redux/redux-store';
+import {AppStateType} from 'redux/redux-store';
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
-import {getUserStatus, savePhoto, saveProfile, setProfile, setUserStatus, updateStatus} from 'redux/profile-reducer';
+import {savePhoto, saveProfile, setProfile, setUserStatus, updateStatus} from 'redux/profile-reducer';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 import {selectOwner, selectProfile, selectStatus} from 'redux/selectors/profile.selectors';
 import {selectIsAuth, selectUserId} from 'redux/selectors/auth.selectors';
-import {UpdateUserProfileType} from 'api/api';
 import {withAuthRedirect} from 'hok/withAuthRedirect';
+import {UserProfileType} from '../../types/commonTypes';
 
 
 export type UsersProfilePropsType = MapStatePropsType & MapDispatchPropsType
 
-// type MapStatePropsType = ReturnType<typeof mapStateToProps>
-
-type MapStatePropsType = {
-    profile: UserProfileType | null
-    status: string
-    autorizedUserId: string | null
-    isAuth: boolean
-    isOwner: boolean
-
-}
-
+type MapStatePropsType = ReturnType<typeof mapStateToProps>
 
 type MapDispatchPropsType = {
     setProfile: (userId: string) => void
     setUserStatus: (userId: string) => void
     updateStatus: (status: string) => void
     savePhoto: (file: File) => void
-    saveProfile: (profile: UpdateUserProfileType) => Promise<any>  //(dispatch: ThunkDispatch<AppStateType, void, AnyAction>, getState: () => AppStateType) => Promise<AxiosResponse<any>>
+    saveProfile: (profile: UserProfileType) => Promise<any>
 }
 type PathParamType = {
     userId: string
@@ -43,8 +33,8 @@ class ProfileContainer extends React.Component <PropsType> {
 
     refreshProfile() {
         let userId = this.props.match.params.userId
-        if (!userId && this.props.autorizedUserId) {
-            userId = this.props.autorizedUserId;
+        if (!userId && this.props.authorizedUserId) {
+            userId = this.props.authorizedUserId;
             if (!userId) {
                 this.props.history.push('/login')
             }
@@ -78,25 +68,16 @@ class ProfileContainer extends React.Component <PropsType> {
 };
 
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         profile: selectProfile(state),
         status: selectStatus(state),
-        autorizedUserId: selectUserId(state),
+        authorizedUserId: selectUserId(state),
         isAuth: selectIsAuth(state),
         isOwner: selectOwner(state),
 
     }
 }
-
-
-// const mapDispatchToProps: MapDispatchPropsType = {
-//     setProfile: setProfileTC,
-//     getStatus: getUserStatusTC,
-//     updateStatus: updateStatusTC,
-//     savePhoto: savePhoto,
-//     saveProfile: saveProfile,
-// }
 
 
 export default compose<React.ComponentType>(

@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Users.module.css';
 import defaultAva from '../../avatars/765-default-avatar.png';
 import {NavLink} from 'react-router-dom';
-import {UserType} from 'redux/redux-store';
+import {UserType} from '../../types/commonTypes';
 
 
 type UserPropsType = {

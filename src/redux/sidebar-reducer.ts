@@ -1,8 +1,5 @@
-// type changeFilterACType = ReturnType<typeof changeFilterAC>
-
-
-import {SidebarType} from './redux-store';
 import {v1} from 'uuid';
+import {FriendsType} from '../types/commonTypes';
 
 const initialState = {
     friends: [
@@ -24,9 +21,16 @@ const initialState = {
     ]
 }
 
-export const sidebarReducer = (state: SidebarType = initialState, action: any) => {
-
+export const sidebarReducer = (state = initialState, action: any): SidebarType  => {
 
     return state
 };
+
+
+// Types----------------------------------------------------------------------------------------------------------------
+
+export type SidebarType = {
+    friends: FriendsType[]
+}
+
 

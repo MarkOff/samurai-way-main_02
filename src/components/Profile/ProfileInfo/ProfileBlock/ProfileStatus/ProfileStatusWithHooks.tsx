@@ -13,7 +13,7 @@ export const ProfileStatusWithHooks: FC<Props> = ({status, updateStatus}) => {
 
     useEffect(() => {
         setNewStatus(status)
-    },[status])
+    }, [status])
 
 
     const onActiveEditMode = () => {
@@ -36,13 +36,14 @@ export const ProfileStatusWithHooks: FC<Props> = ({status, updateStatus}) => {
     return (
         <div className={s.status}>
             {!editMode &&
-                <div title={'On double click change status'}>
-                    <span onDoubleClick={onActiveEditMode}> {onHasStatus} </span>
+                <div>
+                    <span onClick={onActiveEditMode}> {onHasStatus} </span>
                 </div>
             }
             {editMode &&
                 <div>
-                    <input onChange={onStatusChange} autoFocus={true} onBlur={onDeactivateEditeMode} className={s.statusInput}
+                    <input onChange={onStatusChange} autoFocus={true} onBlur={onDeactivateEditeMode}
+                           className={s.statusInput}
                            value={newStatus} placeholder={'change you status'} minLength={0} maxLength={30}/>
                 </div>
             }

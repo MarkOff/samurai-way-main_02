@@ -1,5 +1,3 @@
-import {UserType} from 'redux/redux-store';
-import {type} from '@testing-library/user-event/dist/type';
 
 type ObjPropNameType = "name" | "id" | "uniqueUrlName" | "photos" | "status" | "followed" | "location"
 

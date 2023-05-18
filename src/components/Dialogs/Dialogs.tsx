@@ -6,16 +6,16 @@ import {DialogsPropsType} from './DialogsContainer';
 import {MessageForm, MessageReduxForm} from './DialogForm/MessageForm';
 
 
-export const Dialogs: FC<DialogsPropsType> = ({dialogs, messages, sendMessage}) => {
+export const Dialogs: FC<DialogsPropsType> = ({mainDialogs, sendMessage}) => {
 
 
-    const dialogsElements = dialogs.map((e) => {
+    const dialogsElements = mainDialogs.dialogs.map((e) => {
         return (
             <DialogItem key={e.id} ava={e.ava} id={e.id} name={e.name}/>
         )
     })
 
-    const messageElements = messages.map((e) => {
+    const messageElements = mainDialogs.messages.map((e) => {
         return (
             <Message key={e.id} id={e.id} message={e.message}/>
         )

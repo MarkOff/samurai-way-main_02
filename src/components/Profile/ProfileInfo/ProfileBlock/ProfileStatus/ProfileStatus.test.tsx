@@ -1,9 +1,9 @@
 import React from 'react';
 import {create} from 'react-test-renderer';
 import {ProfileStatus} from 'components/Profile/ProfileInfo/ProfileBlock/ProfileStatus/ProfileStatus';
-import {UserProfileType} from 'redux/redux-store';
 import {v1} from 'uuid';
-import {setUserStatus, savePhoto, saveProfile, setProfile, updateStatus} from 'redux/profile-reducer';
+import {savePhoto, setProfile, setUserStatus, updateStatus} from 'redux/profile-reducer';
+import {UserProfileType} from '../../../../../types/commonTypes';
 
 describe('ProfileStatus component', () => {
     const testProfile: UserProfileType = {
@@ -43,7 +43,7 @@ describe('ProfileStatus component', () => {
 
     test('status from props should be in the  state', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
-                                                autorizedUserId={state.autorizedUserId}
+                                                authorizedUserId={state.autorizedUserId}
                                                 setUserStatus={setUserStatus}
                                                 setProfile={setProfile} updateStatus={updateStatus}
                                                 savePhoto={savePhoto}
@@ -57,7 +57,7 @@ describe('ProfileStatus component', () => {
     })
     test('after creation "span" should be displayed', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
-                                                autorizedUserId={state.autorizedUserId}
+                                                authorizedUserId={state.autorizedUserId}
                                                 setUserStatus={setUserStatus}
                                                 setProfile={setProfile} updateStatus={updateStatus}
                                                 isOwner={state.isOwner}
@@ -71,7 +71,7 @@ describe('ProfileStatus component', () => {
     })
     test('after creation "input" shouldn\'t\ be displayed', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
-                                                autorizedUserId={state.autorizedUserId}
+                                                authorizedUserId={state.autorizedUserId}
                                                 setUserStatus={setUserStatus}
                                                 setProfile={setProfile} updateStatus={updateStatus}
                                                 isOwner={state.isOwner}
@@ -87,7 +87,7 @@ describe('ProfileStatus component', () => {
 
     test('after creation "span" should contains correct status', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
-                                                autorizedUserId={state.autorizedUserId}
+                                                authorizedUserId={state.autorizedUserId}
                                                 setUserStatus={setUserStatus}
                                                 setProfile={setProfile} updateStatus={updateStatus}
                                                 isOwner={state.isOwner}
@@ -101,7 +101,7 @@ describe('ProfileStatus component', () => {
 
     test('input should be displayed in editMode', () => {
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
-                                                autorizedUserId={state.autorizedUserId}
+                                                authorizedUserId={state.autorizedUserId}
                                                 setUserStatus={setUserStatus}
                                                 setProfile={setProfile} updateStatus={updateStatus}
                                                 isOwner={state.isOwner}
@@ -118,7 +118,7 @@ describe('ProfileStatus component', () => {
     test('callback should be called', () => {
         const mockCallback = jest.fn()
         const component = create(<ProfileStatus isAuth={state.isAuth} status={state.status} profile={state.profile}
-                                                autorizedUserId={state.autorizedUserId}
+                                                authorizedUserId={state.autorizedUserId}
                                                 setUserStatus={setUserStatus}
                                                 setProfile={setProfile} updateStatus={mockCallback}
                                                 isOwner={state.isOwner}

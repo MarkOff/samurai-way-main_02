@@ -1,7 +1,6 @@
 import React, {FC} from 'react';
 import s from './StatusJob.module.css';
-import {UsersProfilePropsType} from 'components/Profile/ProfileContainer';
-import {UserProfileType} from 'redux/redux-store';
+import {UserProfileType} from '../../../../../types/commonTypes';
 
 type Props = Partial<Pick<UserProfileType, 'lookingForAJobDescription' | 'lookingForAJob'>>;
 

@@ -7,7 +7,7 @@ import {StatusJob} from 'components/Profile/ProfileInfo/ProfileBlock/StatusJob/S
 import {AboutMe} from 'components/Profile/ProfileInfo/ProfileBlock/AboutMe/AboutMe';
 import {FullName} from 'components/Profile/ProfileInfo/ProfileBlock/FullName/FullName';
 import {MainAvatar} from 'components/Profile/ProfileInfo/ProfileBlock/MainAvatar/MainAvatar';
-import {UserProfileType} from 'redux/redux-store';
+import {UserProfileType} from '../../../../types/commonTypes';
 
 // type Props = Partial<Pick<UsersProfilePropsType,   'isOwner' | 'profile' | 'status' | 'updateStatus' | 'savePhoto'>>;
 

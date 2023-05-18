@@ -1,11 +1,7 @@
 import React, {FC} from 'react';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {MyPostsContainer} from './MyPosts/MyPostsContainer';
-import {UsersProfilePropsType} from './ProfileContainer';
-import {type} from '@testing-library/user-event/dist/type';
-import {UserProfileType} from 'redux/redux-store';
-import {UpdateUserProfileType} from 'api/api';
-import {setProfile} from 'redux/profile-reducer';
+import {UserProfileType} from '../../types/commonTypes';
 
 type Props = {
     profile: UserProfileType | null
@@ -13,7 +9,7 @@ type Props = {
     isOwner: boolean
     updateStatus: (status: string) => void
     savePhoto: (file: File) => void
-    saveProfile: (profile: UpdateUserProfileType) => Promise<any>
+    saveProfile: (profile: UserProfileType) => Promise<any>
 }
 
 

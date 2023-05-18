@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {UserProfileType} from '../types/commonTypes';
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -37,7 +38,7 @@ export const profileApi = {
 
         return instance.put(`profile/photo`, formData, {headers: {'Content-Type': 'multipart/form-data'} })
     } ,
-    saveProfile(profile: UpdateUserProfileType) {
+    saveProfile(profile: UserProfileType) {
         return instance.put(`profile`, profile)
     }
 }
@@ -61,20 +62,20 @@ export const securityAPI = {
 }
 
 
-export type UpdateUserProfileType = {
-    aboutMe: string,
-    contacts: {
-        facebook: null |string,
-        website: null | string,
-        vk: null | string,
-        twitter: null | string,
-        instagram: null | string,
-        youtube: null | string,
-        github: null | string,
-        mainLink: null | string
-    },
-    lookingForAJob: boolean,
-    lookingForAJobDescription: string,
-    fullName: string,
-    userId: number,
-}
+// export type UpdateUserProfileType = {
+//     aboutMe: string,
+//     contacts: {
+//         facebook: null |string,
+//         website: null | string,
+//         vk: null | string,
+//         twitter: null | string,
+//         instagram: null | string,
+//         youtube: null | string,
+//         github: null | string,
+//         mainLink: null | string
+//     },
+//     lookingForAJob: boolean,
+//     lookingForAJobDescription: string,
+//     fullName: string,
+//     userId: number,
+// }

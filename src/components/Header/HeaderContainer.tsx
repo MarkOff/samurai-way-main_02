@@ -9,13 +9,7 @@ import {selectEmail, selectIsAuth, selectLogin, selectUserId} from 'redux/select
 export type HeaderPropsType = MapStatePropsType & MapDispatchPropsType
 
 
-type MapStatePropsType = {
-    userId: string | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-    isFetching?: boolean
-}
+type MapStatePropsType = ReturnType<typeof mapStateToProps>
 
 
 type MapDispatchPropsType = {
@@ -43,7 +37,7 @@ class HeaderContainer extends React.Component<HeaderPropsType> {
     }
 }
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         userId: selectUserId(state),
         email: selectEmail(state),
@@ -52,10 +46,5 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-const mapDispatchToProps: MapDispatchPropsType = {
-    logout: logout
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer)
+export default connect(mapStateToProps, {logout})(HeaderContainer)
 

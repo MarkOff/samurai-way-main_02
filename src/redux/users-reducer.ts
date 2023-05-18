@@ -1,8 +1,8 @@
-import {UsersPageType, UserType} from './redux-store';
 import {userApi} from '../api/api';
 import {Dispatch} from 'react';
 import {updateObjectInArray} from 'utils/object-helpers';
 import {ResultCode} from 'components/common/Enums/common.enums';
+import {UserType} from '../types/commonTypes';
 
 const STATUS_FOLLOW = 'USER/STATUS_FOLLOW'
 const STATUS_UNFOLLOW = 'USER/STATUS_UNFOLLOW'
@@ -13,27 +13,27 @@ const TOGGLE_IS_FETCH = 'USER/TOGGLE_FETCH'
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'USER/TOGGLE_IS_FOLLOWING_PROGRESS'
 
 const initialState = {
-    users: [],
+    users: [] as UserType[],
     pageSize: 10,
     totalUserCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: []
+    followingInProgress: [] as string[]
 }
 
-export const usersReducer = (state: UsersPageType = initialState, action: UniversalTypeForUserActions) => {
+export const usersReducer = (state = initialState, action: UniversalTypeForUserActions): UsersPageType => {
     switch (action.type) {
         case STATUS_FOLLOW: {
             return {
                 ...state,
-                users: updateObjectInArray<UserType>(state.users, action.userId,'id',{followed:true})
+                users: updateObjectInArray<UserType>(state.users, action.userId, 'id', {followed: true})
 
             }
         }
         case STATUS_UNFOLLOW: {
             return {
                 ...state,
-                users: updateObjectInArray<UserType>(state.users, action.userId,'id',{followed:false})
+                users: updateObjectInArray<UserType>(state.users, action.userId, 'id', {followed: false})
             }
         }
         case SET_USERS: {
@@ -79,14 +79,6 @@ export const usersReducer = (state: UsersPageType = initialState, action: Univer
 }
 
 // ActionCreators ---------------------------------------------------------------------------------------------------------
-export type UniversalTypeForUserActions =
-    | ReturnType<typeof followAccess>
-    | ReturnType<typeof unfollowAccess>
-    | ReturnType<typeof setUsers>
-    | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setTotalUserCounts>
-    | ReturnType<typeof setToggleIsFetch>
-    | ReturnType<typeof statusFollowing>
 
 
 export const followAccess = (userId: string) => ({type: STATUS_FOLLOW, userId} as const)
@@ -152,3 +144,17 @@ export const forPageSwitch = (currentPage: number, pageSize: number) =>
         dispatch(setToggleIsFetch(false))
         dispatch(setUsers(response.data.items))
     }
+
+// Types---------------------------------------------------------------------------------------------------------------
+
+export type UsersPageType = typeof initialState
+
+
+export type UniversalTypeForUserActions =
+    | ReturnType<typeof followAccess>
+    | ReturnType<typeof unfollowAccess>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUserCounts>
+    | ReturnType<typeof setToggleIsFetch>
+    | ReturnType<typeof statusFollowing>

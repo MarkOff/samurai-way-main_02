@@ -1,4 +1,5 @@
 import {v1} from 'uuid';
+import {DialogType, MessageType} from '../types/commonTypes';
 
 
 const SEND_MESSAGE = 'DIALOGS/SEND_MESSAGE'
@@ -10,7 +11,7 @@ const initialState = {
         {id: v1(), message: 'Hi, go to travel'},
         {id: v1(), message: 'How are you?'},
         {id: v1(), message: 'Im fine, you?'}
-    ],
+    ] as MessageType[],
     dialogs: [
         {
             id: v1(),
@@ -32,10 +33,10 @@ const initialState = {
             name: 'Vasa',
             ava: 'https://abrakadabra.fun/uploads/posts/2021-12/1639902118_3-abrakadabra-fun-p-ugarnie-avatarki-dlya-ks-3.png'
         },
-    ]
+    ] as DialogType[]
 }
 
-export const dialogsReducer = (state: MessagesPageType = initialState, action: UniversalTypeForMessagesPageType) => {
+export const dialogsReducer = (state = initialState, action: UniversalTypeForMessagesPageType): MessagesPageType => {
 
     switch (action.type) {
         case SEND_MESSAGE: {
@@ -49,25 +50,11 @@ export const dialogsReducer = (state: MessagesPageType = initialState, action: U
     }
 
 }
-export const sendMessageAC = (newMessageBody: string) => ({type: SEND_MESSAGE, newMessageBody} as const)
+export const sendMessage = (newMessageBody: string) => ({type: SEND_MESSAGE, newMessageBody} as const)
 
 // Types------------------------------------------------------------------------------
-export type MessagesPageType = {
-    messages: MessagesType[]
-    dialogs: DialogsType[]
-}
-
-export type MessagesType = {
-    id: string
-    message: string
-}
-
-export type  DialogsType = {
-    id: string
-    name: string
-    ava: string
-}
+export type MessagesPageType = typeof initialState
 
 export type UniversalTypeForMessagesPageType =
-    | ReturnType<typeof sendMessageAC>
+    | ReturnType<typeof sendMessage>
 

@@ -3,7 +3,6 @@ import {InjectedFormProps, reduxForm} from 'redux-form';
 import {required} from 'utils/validators/validators';
 import {createField, Input} from '../common/FormsControl/FormsControl';
 import s from './../common/FormsControl/FormControl.module.css'
-import {UserProfileType} from 'redux/redux-store';
 
 export type FormDataType = {
     email: string

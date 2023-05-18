@@ -26,12 +26,9 @@ export const authReducer = (state = initialState, action: UniversalTypeForAuthTy
                 ...state,
                 ...action.payload,
             }
-
-
         default:
             return state
     }
-
 }
 
 

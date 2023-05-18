@@ -1,4 +1,3 @@
-import {UsersPageType} from 'redux/redux-store';
 import {
     followAccess,
     setCurrentPage,
@@ -6,7 +5,7 @@ import {
     setTotalUserCounts,
     setUsers,
     statusFollowing,
-    unfollowAccess,
+    unfollowAccess, UsersPageType,
     usersReducer
 } from 'redux/users-reducer';
 

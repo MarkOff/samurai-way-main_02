@@ -1,10 +1,10 @@
 import React from 'react';
 import s from './Post.module.css'
-import {PostsProps} from 'redux/redux-store';
+import {PostType} from '../../../../types/commonTypes';
 
 
 
-export const Post = (props: PostsProps) => {
+export const Post = (props: PostType) => {
     return (
         <div className={s.posts}>
             <img src="https://i.pinimg.com/736x/1e/33/a5/1e33a5fad800ee8e782ad87e63169187.jpg"/>

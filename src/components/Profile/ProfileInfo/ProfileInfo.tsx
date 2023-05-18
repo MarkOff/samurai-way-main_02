@@ -1,11 +1,8 @@
 import React, {FC, useState} from 'react';
-import {UsersProfilePropsType} from '../ProfileContainer';
 import {ProfileBlock} from 'components/Profile/ProfileInfo/ProfileBlock/ProfileBlock';
 import ProfileDataFormReduxForm from 'components/Profile/ProfileInfo/ProfileBlock/ProfileDataForm';
-import {FormSubmitHandler} from 'redux-form';
 import {Preloader} from 'components/common/Preloader/Preloader';
-import {UserProfileType} from 'redux/redux-store';
-import {UpdateUserProfileType} from 'api/api';
+import {UserProfileType} from '../../../types/commonTypes';
 
 
 type Props = {
@@ -14,7 +11,7 @@ type Props = {
     isOwner: boolean
     updateStatus: (status: string) => void
     savePhoto: (file: File) => void
-    saveProfile: (profile: UpdateUserProfileType) => Promise<any>
+    saveProfile: (profile: UserProfileType) => Promise<any>
 }
 
 export const ProfileInfo: FC<Props> = ({profile, saveProfile, savePhoto, updateStatus, status, isOwner}) => {

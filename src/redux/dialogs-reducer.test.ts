@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {dialogsReducer, MessagesPageType, sendMessageAC} from 'redux/dialogs-reducer';
+import {dialogsReducer, MessagesPageType, sendMessage} from 'redux/dialogs-reducer';
 
 
 let state: MessagesPageType = {
@@ -40,7 +40,7 @@ beforeEach(() => {
 
 test('send Message', () => {
 
-    let action = sendMessageAC('Test message')
+    let action = sendMessage('Test message')
 
     let newState = dialogsReducer(state, action)
 

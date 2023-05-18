@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
-import {UserProfileType} from 'redux/redux-store';
 import {createField, Input, Textarea} from 'components/common/FormsControl/FormsControl';
 import {required} from 'utils/validators/validators';
 import {InjectedFormProps, reduxForm} from 'redux-form';
 import s from './ProfileDataForm.module.css'
+import {UserProfileType} from '../../../../types/commonTypes';
 
 // type Props = Partial<Pick<UsersProfilePropsType,   'isOwner' | 'profile' | 'status' | 'updateStatus' | 'savePhoto'>>;
 

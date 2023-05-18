@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import {UserProfileType} from 'redux/redux-store';
 import s from './FullName.module.css'
+import {UserProfileType} from '../../../../../types/commonTypes';
 
 type Props = Partial<Pick<UserProfileType, 'fullName'>>;
 

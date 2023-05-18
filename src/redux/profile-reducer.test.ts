@@ -1,6 +1,12 @@
-import {addPostAC, deletePostAC, getUserStatus, profileReducer, setUserProfile} from 'redux/profile-reducer';
+import {
+    addPost,
+    deletePost,
+    getUserStatus, ProfilePageType,
+    profileReducer,
+    setUserProfile,
+} from 'redux/profile-reducer';
 import {v1} from 'uuid';
-import {ProfilePageType, UserProfileType} from 'redux/redux-store';
+import {UserProfileType} from '../types/commonTypes';
 
 
 let state: ProfilePageType = {posts: [], profile: null, status: '', isOwner: false,}
@@ -22,7 +28,7 @@ beforeEach(() => {
 
 test('add new Post', () => {
 
-    let action = addPostAC('New post done')
+    let action = addPost('New post done')
 
     let newState = profileReducer(state, action)
 
@@ -34,7 +40,7 @@ test('add new Post', () => {
 
 test('delete new Post', () => {
 
-    let action = deletePostAC(state.posts[0].id)
+    let action = deletePost(state.posts[0].id)
 
     let newState = profileReducer(state, action)
 
