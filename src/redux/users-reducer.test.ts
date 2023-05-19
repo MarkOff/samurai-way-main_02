@@ -32,6 +32,7 @@ let state: UsersPageType = {
     totalUserCount: 0,
     currentPage: 1,
     isFetching: false,
+    filter: '',
     followingInProgress: []
 }
 

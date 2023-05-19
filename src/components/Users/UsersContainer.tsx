@@ -1,13 +1,13 @@
 import React from 'react';
 import {AppStateType} from 'redux/redux-store';
 import {connect} from 'react-redux';
-import {forPageSwitch, getUser, onFollowUser, onUnfollowUser} from 'redux/users-reducer';
+import {forPageSwitch, getUser, onFollowUser, onUnfollowUser, setFilter} from 'redux/users-reducer';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
 import {compose} from 'redux';
 import {
-    getUsers,
-    selectCurrentPage,
+    getUsersSelect,
+    selectCurrentPage, selectFilter,
     selectFollowingInProgress,
     selectIsFetching,
     selectPageSize,
@@ -26,6 +26,7 @@ type MapDispatchPropsType = {
     onFollowUser: (userId: string) => void
     onUnfollowUser: (userId: string) => void
     forPageSwitch: (currentPage: number, pageSize: number) => void
+    setFilter: (filter: string) => void
 }
 
 
@@ -54,6 +55,8 @@ class UsersContainer extends React.Component<UsersPropsType> {
             onUnfollowUser,
             onFollowUser,
             forPageSwitch,
+            filter,
+            setFilter
         } = this.props
 
         return <>
@@ -70,6 +73,8 @@ class UsersContainer extends React.Component<UsersPropsType> {
                     onUnfollowUser={onUnfollowUser}
                     onFollowUser={onFollowUser}
                     forPageSwitch={forPageSwitch}
+                    filter={filter}
+                    setFilter={setFilter}
                 />}
         </>
     }
@@ -79,7 +84,8 @@ class UsersContainer extends React.Component<UsersPropsType> {
 //Connect to Store for 'UsersPage' -----------------------------------------------------------------------------------------------------------------------
 const mapStateToProps = (state: AppStateType) => {
     return {
-        users: getUsers(state),
+        users: getUsersSelect(state),
+        filter: selectFilter(state),
         pageSize: selectPageSize(state),
         totalUserCount: selectTotalCount(state),
         currentPage: selectCurrentPage(state),
@@ -90,7 +96,7 @@ const mapStateToProps = (state: AppStateType) => {
 //HOK for UsersAPIComponent and next for Users(presentation component) --------------------------------------------------------------------------------------------------------------------------------------------------
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUser, onUnfollowUser, onFollowUser, forPageSwitch,}),
+    connect(mapStateToProps, {getUser, onUnfollowUser, onFollowUser, forPageSwitch, setFilter}),
     // withAuthRedirect
 )(UsersContainer)
 

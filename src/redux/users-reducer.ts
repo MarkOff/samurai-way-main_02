@@ -11,6 +11,7 @@ const SET_CURRENT_PAGE = 'USER/SET_CURRENT_PAGE'
 const SET_TOTAL_COUNT = 'USER/SET_TOTAL_COUNT'
 const TOGGLE_IS_FETCH = 'USER/TOGGLE_FETCH'
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'USER/TOGGLE_IS_FOLLOWING_PROGRESS'
+const SET_FILTER_USER = 'USER/SET_FILTER_USER'
 
 const initialState = {
     users: [] as UserType[],
@@ -18,7 +19,8 @@ const initialState = {
     totalUserCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: [] as string[]
+    followingInProgress: [] as string[],
+    filter: ''
 }
 
 export const usersReducer = (state = initialState, action: UniversalTypeForUserActions): UsersPageType => {
@@ -69,13 +71,17 @@ export const usersReducer = (state = initialState, action: UniversalTypeForUserA
                     ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter(id => id !== action.userId)
             }
-
+        }
+        case SET_FILTER_USER: {
+            return {
+                ...state,
+                filter: action.filter
+            }
         }
 
         default:
             return state
     }
-
 }
 
 // ActionCreators ---------------------------------------------------------------------------------------------------------
@@ -87,11 +93,8 @@ export const setUsers = (users: UserType[]) => ({type: SET_USERS, users} as cons
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUserCounts = (totalUsersCount: number) => ({type: SET_TOTAL_COUNT, totalUsersCount} as const)
 export const setToggleIsFetch = (isFetching: boolean) => ({type: TOGGLE_IS_FETCH, isFetching} as const)
-export const statusFollowing = (userId: string, isFetching: boolean) => ({
-    type: TOGGLE_IS_FOLLOWING_PROGRESS,
-    userId,
-    isFetching,
-} as const)
+export const statusFollowing = (userId: string, isFetching: boolean) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, userId, isFetching,} as const)
+export const setFilter = (filter: string) => ({type: SET_FILTER_USER, filter} as const)
 
 
 // ThunkCreators ---------------------------------------------------------------------------------------------------------
@@ -123,14 +126,14 @@ const followUnfollowFlow = async (dispatch: Dispatch<UniversalTypeForUserActions
 export const onFollowUser = (userId: string) =>
     async (dispatch: Dispatch<UniversalTypeForUserActions>) => {
         const apiMethod = userApi.followOnUser.bind(userApi)
-        followUnfollowFlow(dispatch, userId, apiMethod, followAccess)
+       await followUnfollowFlow(dispatch, userId, apiMethod, followAccess)
     }
 
 
 export const onUnfollowUser = (userId: string) =>
     async (dispatch: Dispatch<UniversalTypeForUserActions>) => {
         const apiMethod = userApi.unfollowOnUser.bind(userApi)
-        followUnfollowFlow(dispatch, userId, apiMethod, unfollowAccess)
+       await followUnfollowFlow(dispatch, userId, apiMethod, unfollowAccess)
     }
 
 
@@ -145,6 +148,8 @@ export const forPageSwitch = (currentPage: number, pageSize: number) =>
         dispatch(setUsers(response.data.items))
     }
 
+
+
 // Types---------------------------------------------------------------------------------------------------------------
 
 export type UsersPageType = typeof initialState
@@ -158,3 +163,4 @@ export type UniversalTypeForUserActions =
     | ReturnType<typeof setTotalUserCounts>
     | ReturnType<typeof setToggleIsFetch>
     | ReturnType<typeof statusFollowing>
+    | ReturnType<typeof setFilter>
