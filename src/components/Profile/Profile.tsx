@@ -1,7 +1,8 @@
 import React, {FC} from 'react';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
-import {MyPostsContainer} from './MyPosts/MyPostsContainer';
+
 import {UserProfileType} from '../../types/commonTypes';
+import MyPostsContainer from './MyPosts/MyPostsContainer';
 
 type Props = {
     profile: UserProfileType | null

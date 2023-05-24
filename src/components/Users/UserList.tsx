@@ -10,13 +10,15 @@ type UsersListPropsType = {
     followingInProgress: Array<string>;
 };
 
-export const UsersList: FC<UsersListPropsType> = ({
-                                                      users,
-                                                      filter,
-                                                      onFollowUser,
-                                                      onUnfollowUser,
-                                                      followingInProgress,
-                                                  }) => {
+export const UsersList: FC<UsersListPropsType> = (
+    {
+        users,
+        filter,
+        onFollowUser,
+        onUnfollowUser,
+        followingInProgress,
+    }) => {
+
     const filteredUsers = users.filter((el) => el.name.indexOf(filter) > -1);
 
     return (

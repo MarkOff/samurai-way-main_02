@@ -1,9 +1,20 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, Props} from 'react';
 import {UsersProfilePropsType} from 'components/Profile/ProfileContainer';
+import {type} from '@testing-library/user-event/dist/type';
 
-type Props = Partial<Omit<UsersProfilePropsType, 'saveProfile'>>
+// type Props = Partial<Omit<UsersProfilePropsType, 'saveProfile'>>
 
-export class ProfileStatus extends React.Component <Props> {
+type PropsType = {
+    status: string
+    updateStatus: (newStatus: string) => void
+}
+
+type StateType = {
+    editMode: boolean
+    status: string
+}
+
+export class ProfileStatus extends React.Component <PropsType, StateType> {
 
     state = {
         editMode: false,
@@ -25,14 +36,14 @@ export class ProfileStatus extends React.Component <Props> {
 
     }
 
-    onStatusChange = (e:ChangeEvent<HTMLInputElement>) => {
-            this.setState({
-                status: e.currentTarget.value
-            })
+    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            status: e.currentTarget.value
+        })
     }
 
-    componentDidUpdate(prevProps: Readonly<UsersProfilePropsType>, prevState: Readonly<{}>) {
-        if(prevProps.status !== this.props.status){
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
+        if (prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status
             })
@@ -44,9 +55,9 @@ export class ProfileStatus extends React.Component <Props> {
             <div>
                 {!this.state.editMode &&
                     <div>
-                        {/*<span onDoubleClick={this.activateEditeMode}> {`status: ${this.props.status}` || 'No status'}</span>*/}
+
                         <span onDoubleClick={this.activateEditeMode}> {this.props.status !== null
-                            ?`status: ${this.props.status}`
+                            ? `status: ${this.props.status}`
                             : 'No status'
                         }
                         </span>
@@ -55,7 +66,7 @@ export class ProfileStatus extends React.Component <Props> {
                 }
                 {this.state.editMode &&
                     <div>
-                        <input onChange={this.onStatusChange}  autoFocus={true} onBlur={this.deactivateEditeMode}
+                        <input onChange={this.onStatusChange} autoFocus={true} onBlur={this.deactivateEditeMode}
                                value={this.state.status} placeholder={'change you status'}/>
                     </div>
                 }

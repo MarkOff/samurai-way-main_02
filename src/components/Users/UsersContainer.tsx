@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {AppStateType} from 'redux/redux-store';
 import {connect} from 'react-redux';
 import {forPageSwitch, getUser, onFollowUser, onUnfollowUser, setFilter} from 'redux/users-reducer';
@@ -95,8 +95,14 @@ const mapStateToProps = (state: AppStateType) => {
 }
 //HOK for UsersAPIComponent and next for Users(presentation component) --------------------------------------------------------------------------------------------------------------------------------------------------
 
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUser, onUnfollowUser, onFollowUser, forPageSwitch, setFilter}),
+export default compose<ComponentType>(
+    connect<MapStatePropsType, MapDispatchPropsType, void, AppStateType>(mapStateToProps, {
+        getUser,
+        onUnfollowUser,
+        onFollowUser,
+        forPageSwitch,
+        setFilter
+    }),
     // withAuthRedirect
 )(UsersContainer)
 

@@ -7,7 +7,7 @@ import {Music} from 'components/Music/Music';
 import {Settings} from 'components/Settings/Settings';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import {Login, LoginContainer} from 'components/Login/Login';
+import {LoginContainer} from 'components/Login/Login';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {initializeApp} from 'redux/app-reducer';
@@ -86,7 +86,7 @@ const mapDispatchToProps: MapDispatchPropsType = {
 
 export default compose<React.ComponentType>(
     withRouter,
-    connect(mapStateToProps, mapDispatchToProps))(App);
+    connect<MapStatePropsType, MapDispatchPropsType, void, AppStateType>(mapStateToProps, mapDispatchToProps))(App);
 
 
 

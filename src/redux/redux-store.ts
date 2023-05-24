@@ -7,6 +7,7 @@ import {authReducer} from './auth-reducer';
 import thunkMiddleware from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 import {appReducer} from './app-reducer';
+import {RouteComponentProps} from 'react-router-dom';
 import {composeWithDevTools} from '@redux-devtools/extension';
 
 
@@ -17,7 +18,7 @@ let reducer = combineReducers({
     usersPage: usersReducer,
     auth: authReducer,
     app: appReducer,
-    form: formReducer
+    form: formReducer,
 })
 
 const enhancer = composeWithDevTools(

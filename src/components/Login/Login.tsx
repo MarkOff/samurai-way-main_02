@@ -1,10 +1,11 @@
-import React, {FC} from 'react';
+import React, {ComponentType, FC} from 'react';
 import {FormDataType, LoginReduxForm} from './LoginForm';
 import {login} from 'redux/auth-reducer';
 import {connect} from 'react-redux';
 import {AppStateType} from 'redux/redux-store';
 import {Redirect} from 'react-router-dom';
 import {selectCaptcha, selectIsAuth} from 'redux/selectors/auth.selectors';
+import {compose} from 'redux';
 
 
 export const Login: FC<LoginContainerPropsType> = ({login, isAuth, captcha}) => {
@@ -26,11 +27,11 @@ export const Login: FC<LoginContainerPropsType> = ({login, isAuth, captcha}) => 
             <p>or use common test account credentials:</p>
             <p> Email: free@samuraijs.com</p>
             <p>Password: free</p>
-    <h1>Login</h1>
-    <LoginReduxForm onSubmit={onSubmit} captchaUrl={captcha}/>
-</div>
-)
-    ;
+            <h1>Login</h1>
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={captcha}/>
+        </div>
+    )
+        ;
 };
 
 
@@ -54,4 +55,4 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 const mapDispatchToProps: MapDispatchToPropsType = {
     login: login,
 }
-export const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(Login)
+export const LoginContainer = compose<ComponentType>( connect<MapStateToPropsType, MapDispatchToPropsType, void, AppStateType>(mapStateToProps, mapDispatchToProps))(Login)

@@ -13,7 +13,7 @@ const TOGGLE_IS_FETCH = 'USER/TOGGLE_FETCH'
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'USER/TOGGLE_IS_FOLLOWING_PROGRESS'
 const SET_FILTER_USER = 'USER/SET_FILTER_USER'
 
-const initialState = {
+const initialState  = {
     users: [] as UserType[],
     pageSize: 10,
     totalUserCount: 0,

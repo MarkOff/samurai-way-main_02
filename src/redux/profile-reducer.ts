@@ -4,7 +4,7 @@ import {profileApi} from 'api/api';
 import {Dispatch} from 'react';
 import {ResultCode} from 'components/common/Enums/common.enums';
 import {AnyAction} from 'redux';
-import {ThunkDispatch} from 'redux-thunk';
+import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {stopSubmit} from 'redux-form';
 import {AxiosResponse} from 'axios';
 import {PhotosType, PostType, UserProfileType} from '../types/commonTypes';
@@ -19,10 +19,10 @@ const SAVE_PHOTO_SUCCESS = 'PROFILE/SAVE_PHOTO_SUCCESS'
 
 const initialState = {
     posts: [
-        {id: v1(), message: 'Hi, it\'s  my first post', counterLike: '12'},
-        {id: v1(), message: 'Hola, howe are you?', counterLike: '24'},
-        {id: v1(), message: 'Yo!', counterLike: '11'},
-        {id: v1(), message: 'GG', counterLike: '1'},
+        {id: v1(), message: 'Hi, it\'s  my first post', counterLike: 12},
+        {id: v1(), message: 'Hola, howe are you?', counterLike: 24},
+        {id: v1(), message: 'Yo!', counterLike: 11},
+        {id: v1(), message: 'GG', counterLike: 1},
     ] as PostType[],
     profile: null as UserProfileType | null,
     status: '',
@@ -32,7 +32,7 @@ const initialState = {
 export const profileReducer = (state = initialState, action: UniversalTypeForProfileActions): ProfilePageType => {
     switch (action.type) {
         case ADD_POST: {
-            return {...state, posts: [{id: v1(), message: action.postFormBody, counterLike: '0'}, ...state.posts]}
+            return {...state, posts: [{id: v1(), message: action.postFormBody, counterLike: 0}, ...state.posts]}
         }
 
         case DELETE_POST: {
@@ -113,7 +113,7 @@ export const savePhoto = (file: File) =>
     }
 
 
-export const saveProfile = (profile: UserProfileType): (dispatch: ThunkDispatch<AppStateType, void, AnyAction>, getState: () => AppStateType) => Promise<AxiosResponse<any>> =>
+export const saveProfile = (profile: UserProfileType): ThunkAction<Promise<AxiosResponse<any, any>>, AppStateType, void, AnyAction> =>
     async (dispatch: ThunkDispatch<AppStateType, void, AnyAction>, getState: () => AppStateType): Promise<AxiosResponse<any>> => {
         const userId = getState().auth.userId
 

@@ -14,10 +14,10 @@ let state: ProfilePageType = {posts: [], profile: null, status: '', isOwner: fal
 beforeEach(() => {
     state = {
         posts: [
-            {id: v1(), message: 'Hi, it\'s  my first post', counterLike: '12'},
-            {id: v1(), message: 'Hola, howe are you?', counterLike: '24'},
-            {id: v1(), message: 'Yo!', counterLike: '11'},
-            {id: v1(), message: 'GG', counterLike: '1'},
+            {id: v1(), message: 'Hi, it\'s  my first post', counterLike: 12},
+            {id: v1(), message: 'Hola, howe are you?', counterLike: 24},
+            {id: v1(), message: 'Yo!', counterLike: 11},
+            {id: v1(), message: 'GG', counterLike: 1},
         ],
         profile: null,
         status: '',

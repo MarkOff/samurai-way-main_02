@@ -5,7 +5,7 @@ export type PhotosType ={
 export type PostType = {
     id: string
     message: string
-    counterLike: string
+    counterLike: number
 }
 
 export type UserProfileType = {
